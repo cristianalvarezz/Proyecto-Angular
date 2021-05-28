@@ -16,6 +16,7 @@ import { ROUTES } from './app.routes';
 
 //pipes
 import { NoimagePipe } from './pipes/noimage.pipe';
+import { TargetasComponent } from './components/targetas/targetas.component';
  
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NoimagePipe } from './pipes/noimage.pipe';
     SearchComponent,
     ArtistaComponent,
     NavbarComponent,
-    NoimagePipe
+    NoimagePipe,
+    TargetasComponent
   ],
   imports: [
     BrowserModule,
