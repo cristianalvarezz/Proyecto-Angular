@@ -1,4 +1,5 @@
-<div class="row">
+
+<div class="row animated fadeIn">
   <div class="col">
     <input
       #termino
@@ -9,6 +10,8 @@
     />
   </div>
 </div>
-<div class="container mt-5">
-  <app-targetas [items]="artistas"></app-targetas>
+<app-loading *ngIf="loading " class="m-5"></app-loading>
+<div class="container mt-5 animated fadeIn">
+  <!-- solo aparece el loading si no esta cargando -->
+  <app-targetas *ngIf="!loading" [items]="artistas" ></app-targetas>
 </div>
