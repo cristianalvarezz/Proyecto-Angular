@@ -23,4 +23,13 @@ export class SpotifyService {
     //si tengo error de token debo generar uno nuevo 
     return this.http.get('https://api.spotify.com/v1/browse/new-releases',{headers});
   }
+
+  getArtista( termino:string ){
+   
+   const headers=new HttpHeaders({
+    'Authorization' : 'Bearer BQCRzvrtRTZxm2cvm9CXVY3EO6GKEcg_oKCLtF_yvnp_gi3O88p3Nps7ATkYTt9FO3PEk0gqDpjyDZrJ5t0'
+  });
+
+  return this.http.get(`https://api.spotify.com/v1/search?q=${ termino }&type=artist&limit=15&offset=5`,{headers});
+  }
 }
