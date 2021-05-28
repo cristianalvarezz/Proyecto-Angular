@@ -12,12 +12,12 @@ export class SearchComponent{
 artistas:any[] =[];
 
   constructor(private spotify:SpotifyService) { }
-
   //lo que sea que la persona me escriba lo traere acaa
  buscar(termino:string){
   this.spotify.getArtista(termino)
     .subscribe((data:any)=>{
-      this.artistas=data.artists.items;
+      console.log(data);
+      this.artistas = data;
     })
  }
 
