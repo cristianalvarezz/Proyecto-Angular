@@ -16,13 +16,11 @@ export class SpotifyService {
 
     //headers necesarios para que me funcione el get de spotify
     const headers=new HttpHeaders({
-      'Authorization' : 'Bearer BQBascl8ZZ_IWiO6mFemEdWtOBHGW45_ATsaTZz35004TthrA739ihfuZpcwWw5382ee_5N_OlhhCjU_k4w'
+      'Authorization' : 'Bearer BQBpksn56kdvebsNB-uRg3o_cPEKGqTNf_6hSDGG1QF7TyaGqbqrHy3cmkRF4JjEypZGNhTv5WYPzBZIIfw'
     });
 
     //hago la peticion a la api de spoti 
-    this.http.get('https://api.spotify.com/v1/browse/new-releases?limit=20',{headers})
-        .subscribe(data=>{
-          console.log(data);
-        })
+    //si tengo error de token debo generar uno nuevo 
+    return this.http.get('https://api.spotify.com/v1/browse/new-releases',{headers});
   }
 }

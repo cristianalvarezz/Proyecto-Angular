@@ -1,1 +1,21 @@
-<h1>Hola</h1>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <div class="card m-3" *ngFor="let cancion of nuevasCanciones">
+    <div class="col">
+      <img [src]="cancion.images[0].url" class="card-img-top" alt="" />
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ cancion.name }}
+        </h5>
+        <!-- arrglo de todos los artistas que cantan  -->
+        <p class="card-text">
+          <!-- dentro de nuevas canciones hay un arreglo de artistas -->
+          <span
+            *ngFor="let artista of cancion.artists"
+            class="badge bg-primary"
+            >{{ artista.name }}</span
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
