@@ -11,35 +11,31 @@ export class SpotifyService {
     console.log('listo');
   }
 
-  getNewReleases() {
+  getQuery(query: string) {
+    const URL = `https://api.spotify.com/v1/${query}`;
     //headers necesarios para que me funcione el get de spotify
     const headers = new HttpHeaders({
       Authorization:
-        'Bearer BQCRzvrtRTZxm2cvm9CXVY3EO6GKEcg_oKCLtF_yvnp_gi3O88p3Nps7ATkYTt9FO3PEk0gqDpjyDZrJ5t0',
+        'Bearer BQBTDjPLAv2XS5hAyZdO7zLzsEjqdzGUxJ3tum9Xf5E9e-dArT5hLni_fRb3FVEPMCnECrlwLHNkV5YgWP8',
     });
 
+    return this.http.get(URL, { headers });
+  }
+
+  getNewReleases() {
+    return this.getQuery('browse/new-releases').pipe(
+      map((data: any) => {
+        return data.albums.items;
+      })
+    );
     //hago la peticion a la api de spoti
     //si tengo error de token debo generar uno nuevo
-    return this.http
-      .get('https://api.spotify.com/v1/browse/new-releases', { headers })
-      .pipe(
-        map((data: any) => {
-          return data.albums.items;
-        })
-      );
     //con map capto la informacion que necesitos y no todos
   }
 
   getArtista(termino: string) {
-    const headers = new HttpHeaders({
-      Authorization:
-        'Bearer BQCRzvrtRTZxm2cvm9CXVY3EO6GKEcg_oKCLtF_yvnp_gi3O88p3Nps7ATkYTt9FO3PEk0gqDpjyDZrJ5t0',
-    });
-    return this.http
-      .get(
-        `https://api.spotify.com/v1/search?q=${termino}&type=artist&limit=15&offset=5`,
-        { headers }
-      ) // filtro los datos
-      .pipe(map((data: any) => data['artists'].items));
+    return this.getQuery(
+      `search?q=${termino}&type=artist&limit=15&offset=5`
+    ).pipe(map((data: any) => data.artists.items));
   }
 }
