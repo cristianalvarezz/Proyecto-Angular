@@ -16,7 +16,7 @@ export class SpotifyService {
     //headers necesarios para que me funcione el get de spotify
     const headers = new HttpHeaders({
       Authorization:
-        'Bearer BQD3-7fRl1Re0e7O-n6Gr3kY4855EZUOJgg6BrV7ObVk1ivWYhwfulDG0zlIaOFo5sxA6t30EUxKapmp8FU',
+        'Bearer BQDGlmbSf_RkwyfgORxn6HjlpxyEBCTa6T_umaemEJFVu3wtzK8fNnJZL-gOMECXgectmvP8Y35yL6--CBY',
     });
 
     return this.http.get(URL, { headers });
