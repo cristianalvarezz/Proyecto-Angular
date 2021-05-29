@@ -11,8 +11,9 @@ export class HomeComponent {
   nuevasCanciones:any[]=[]
   // el operador map toma la informacion y la cambia solo saldra lo que ami me 
   // interesa
-
   loading:boolean=true;
+  mensajeError:any | undefined;
+  error:boolean=false;
   constructor(private spotify: SpotifyService) {
    
     this.spotify.getNewReleases()
@@ -21,6 +22,10 @@ export class HomeComponent {
           this.nuevasCanciones = data;
           this.loading=false;
 
+    },(errorServicio)=>{
+      this.error=true;
+      this.mensajeError=errorServicio.error.error.message;
+      // this.mensajeError= console.log(errorServicio.error.error.message);
     });
   }
 }

@@ -14,10 +14,10 @@ import {HttpClientModule} from '@angular/common/http'
 import {RouterModule, ROUTER_CONFIGURATION} from '@angular/router'
 import { ROUTES } from './app.routes';
 
-//pipes
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { TargetasComponent } from './components/targetas/targetas.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
  
 
 @NgModule({
@@ -29,7 +29,8 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     NavbarComponent,
     NoimagePipe,
     TargetasComponent,
-    LoadingComponent
+    LoadingComponent,
+    DomseguroPipe
   ],
   imports: [
     BrowserModule,
