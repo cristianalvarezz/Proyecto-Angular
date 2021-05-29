@@ -2,6 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+
 @Injectable({
   //con este decorador no necesito importar en el modulo
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class SpotifyService {
     //headers necesarios para que me funcione el get de spotify
     const headers = new HttpHeaders({
       Authorization:
-        'Bearer BQDGlmbSf_RkwyfgORxn6HjlpxyEBCTa6T_umaemEJFVu3wtzK8fNnJZL-gOMECXgectmvP8Y35yL6--CBY',
+        'Bearer BQCTwwdYy7UkLuDk6C2xdhKXScppNURuETmvSztMbPwkjicOqx3B0at-7XfldW6HRcPuGYeW5D19FyZJ57U',
     });
 
     return this.http.get(URL, { headers });
@@ -28,14 +29,16 @@ export class SpotifyService {
         return data.albums.items;
       })
     );
-    //hago la peticion a la api de spoti
-    //si tengo error de token debo generar uno nuevo
-    //con map capto la informacion que necesitos y no todos
   }
 
-  getArtista(termino: string) {
+  getArtistas(termino: string) {
     return this.getQuery(
       `search?q=${termino}&type=artist&limit=15&offset=5`
     ).pipe(map((data: any) => data.artists.items));
+  }
+
+  getArtista(id: string) {
+    // console.log(id);
+    return this.getQuery(`artists/${id}`);
   }
 }

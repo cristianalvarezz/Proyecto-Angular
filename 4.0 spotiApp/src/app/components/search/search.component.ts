@@ -15,7 +15,7 @@ loading:boolean | undefined;
   //lo que sea que la persona me escriba lo traere acaa
  buscar(termino:string){
   this.loading=true;
-  this.spotify.getArtista(termino)
+  this.spotify.getArtistas(termino)
     .subscribe((data:any)=>{
       console.log(data);
       this.artistas = data;
