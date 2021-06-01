@@ -10,6 +10,8 @@ import { ServicesService } from 'src/app/services/services.service';
   styleUrls: ['./poke-table.component.scss'],
 })
 export class PokeTableComponent implements OnInit {
+  selected = '';
+  
   displayedColumns: string[] = ['position', 'image', 'name'];
   data: any[] = [];
   dataSource = new MatTableDataSource<any>(this.data);
@@ -17,18 +19,21 @@ export class PokeTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   pokemons = [];
+
   constructor(
     private pokemonService: ServicesService,
     private router: Router
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
+    
       this.getPokemons();
   }
 
   getPokemons() {
     let pokemonData;
-
     for (let i = 1; i <= 150; i++) {
       this.pokemonService.getPokemons(i).subscribe(
         (res:any) => {
@@ -59,5 +64,6 @@ export class PokeTableComponent implements OnInit {
     //console.log(row);
     this.router.navigateByUrl(`/pokeDetail/${row.position}`)
   }
+
 
 }
