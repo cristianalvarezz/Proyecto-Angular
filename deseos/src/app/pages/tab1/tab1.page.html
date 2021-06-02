@@ -4,15 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
+<app-listas></app-listas>
 <ion-content color="dark">
-  <app-listas></app-listas>
-  <ion-list color="dark">
-    <ion-item *ngFor="let lista of listas" detail color="dark" (click)="listaSeleccionada(lista)">
-      <ion-label> {{lista.titulo}} </ion-label>
-      <!-- saber cuantos items tiene esta lista -->
-      <ion-note color="tertiary" slot="end">{{lista.items.length}}</ion-note>
-    </ion-item>
-  </ion-list>
+ 
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" 
