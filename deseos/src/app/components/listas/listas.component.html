@@ -1,10 +1,15 @@
 <ion-list color="dark">
-<ion-item-sliding *ngFor="let lista of listas">
+<ion-item-sliding *ngFor="let lista of listas " >
     <ion-item detail color="dark" (click)="listaSeleccionada(lista)">
       <ion-label> {{ lista.titulo }} </ion-label>
       <!-- saber cuantos items tiene esta lista -->
       <ion-note color="tertiary" slot="end">{{ lista.items.length }}</ion-note>
     </ion-item>
+    <ion-item-options side="start">
+      <ion-item-option (click)="editarLista(lista)" >
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
     <ion-item-options side="end">
       <ion-item-option (click)="borrarLista(lista)" color="danger">
         <ion-icon name="close" slot="icon-only"></ion-icon>
