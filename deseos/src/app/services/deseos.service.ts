@@ -9,11 +9,28 @@ export class DeseosService {
   listas: Lista[] = [];
 
   constructor() {
-    //creo dos listas para purbeas
-    const lista1 = new Lista('Recoletar piedras de infinito');
-    const lista2 = new Lista('Heroes a desaparecer');
-    //mando todos los elementos que quiero agregar
-    this.listas.push(lista1, lista2);
- 
+    this.cargarStorage();
+  }
+
+  crearLista(titulo: any) {
+    const nuevaLista = new Lista(titulo);
+    this.listas.push(nuevaLista);
+    this.guardaStorage();
+    return nuevaLista.id;
+  }
+
+  obtenerLista(id: string | number) {
+    id = Number(id);
+    return this.listas.find((listaData) => listaData.id === id);
+  }
+
+  guardaStorage() {
+    localStorage.setItem('data', JSON.stringify(this.listas));
+  }
+  cargarStorage() {
+    //validar
+    if (localStorage.getItem('data')) {
+      this.listas = JSON.parse(localStorage.getItem('data'));
+    }
   }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { Lista } from 'src/app/models/lista.model';
 import { DeseosService } from 'src/app/services/deseos.service';
 
 @Component({
@@ -9,11 +11,53 @@ import { DeseosService } from 'src/app/services/deseos.service';
 })
 export class Tab1Page {
   listas: any[] = [];
-  constructor(public deseosService: DeseosService, private router: Router) {
+  constructor(
+    public deseosService: DeseosService,
+    private router: Router,
+    private alertCtrl: AlertController
+  ) {
     this.listas = this.deseosService.listas;
   }
+  //esto lo trsnforma en promesa
+  async agregarLista() {
+    // 
+    //mostrar alerta
+    const alert = await this.alertCtrl.create({
+      header: 'Nueva Lista',
+      inputs: [
+        {
+          name: 'titulo',
+          type: 'text',
+          placeholder: 'Nombre de la lista ',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelar');
+          },
+        },
+        {
+          text: 'Crear',
+          handler: (data) => {
+            console.log(data);
+            if (data.titulo.length === 0) {
+              return;
+            }
+          const listaId=  this.deseosService.crearLista(data.titulo);
 
-  agregarLista(){
-    this.router.navigateByUrl('/tabs/agregar');
+            this.router.navigateByUrl(`/tabs/agregar/${listaId}`);
+          },
+        },
+      ],
+    });
+
+    alert.present();
+  }
+  listaSeleccionada(lista:Lista){
+    this.router.navigateByUrl(`/tabs/agregar/${lista.id}`);
+    // console.log(lista)
   }
 }
