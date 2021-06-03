@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProtegidaComponent } from './components/protegida/protegida.component';
 import { PreciosComponent } from './components/precios/precios.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,16 @@ import { AppRoutingModule } from './app-routing.module';
     ProtegidaComponent,
     PreciosComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthModule.forRoot({
+      domain: 'angularcol.us.auth0.com',
+      clientId: 'I6iSm21Q3sosaGLgDxH9ZFo2ow31GKR1',
+      cacheLocation: 'localstorage',
+      useRefreshTokens: true
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
