@@ -34,6 +34,8 @@ export class ReactiveComponent implements OnInit {
             Validators.required,
           ],
         ],
+        //si quiero un validador asincrono lo pongo de tercero
+        usuario:['', , this.validadores.existeUsuario],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
         direccion: this.fb.group({
