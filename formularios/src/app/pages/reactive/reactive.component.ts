@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidadoresService } from 'src/app/services/validadores.service';
 
 @Component({
   selector: 'app-reactive',
@@ -9,7 +10,10 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ReactiveComponent implements OnInit {
   forma!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private validadores: ValidadoresService
+  ) {
     this.crearFormulario();
     this.cargarDataAlFormulario();
   }
@@ -21,7 +25,7 @@ export class ReactiveComponent implements OnInit {
       //validadores sincronos son valores que no requieren interaccion con servidor
       //los asincronos si
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', Validators.required],
+      apellido: ['', [Validators.required, this.validadores.noHerrera]],
       correo: [
         '',
         [
@@ -33,12 +37,12 @@ export class ReactiveComponent implements OnInit {
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required],
       }),
-      pasatiempos:this.fb.array([ ])
+      pasatiempos: this.fb.array([]),
     });
   }
 
   agregarpasatiempo() {
-    this.pasatiempos.push(  this.fb.control('Nuevo elemento')  );
+    this.pasatiempos.push(this.fb.control('Nuevo elemento'));
   }
   borrarpasatiempo(i: number) {
     this.pasatiempos.removeAt(i);
@@ -48,7 +52,7 @@ export class ReactiveComponent implements OnInit {
     console.log(this.forma);
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach((control) => {
-        //En caso de que dentro del formulario haya un form group hago reviso se control tiene una instancia 
+        //En caso de que dentro del formulario haya un form group hago reviso se control tiene una instancia
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach((control) =>
             control.markAsTouched()
@@ -76,12 +80,14 @@ export class ReactiveComponent implements OnInit {
         ciudad: 'Ottawa',
       },
     });
-    //es una manera de cargar el formulario dinamico nada mas 
-    ['comer','dormir'].forEach(valor=>this.pasatiempos.push(this.fb.control(valor)));
+    //es una manera de cargar el formulario dinamico nada mas
+    ['comer', 'dormir'].forEach((valor) =>
+      this.pasatiempos.push(this.fb.control(valor))
+    );
   }
 
   //validaciones
-  //esto va hacer un return de el arreglo de pasatiempos 
+  //esto va hacer un return de el arreglo de pasatiempos
   get pasatiempos() {
     return this.forma.get('pasatiempos') as FormArray;
   }
@@ -134,5 +140,4 @@ export class ReactiveComponent implements OnInit {
 
     return pass1 === pass2 ? false : true;
   }
-  
 }
