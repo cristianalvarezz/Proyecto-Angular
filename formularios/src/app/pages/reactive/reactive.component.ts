@@ -21,24 +21,31 @@ export class ReactiveComponent implements OnInit {
   ngOnInit(): void {}
 
   crearFormulario() {
-    this.forma = this.fb.group({
-      //validadores sincronos son valores que no requieren interaccion con servidor
-      //los asincronos si
-      nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, this.validadores.noHerrera]],
-      correo: [
-        '',
-        [
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
-          Validators.required,
+    this.forma = this.fb.group(
+      {
+        //validadores sincronos son valores que no requieren interaccion con servidor
+        //los asincronos si
+        nombre: ['', [Validators.required, Validators.minLength(5)]],
+        apellido: ['', [Validators.required, this.validadores.noHerrera]],
+        correo: [
+          '',
+          [
+            Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+            Validators.required,
+          ],
         ],
-      ],
-      direccion: this.fb.group({
-        distrito: ['', Validators.required],
-        ciudad: ['', Validators.required],
-      }),
-      pasatiempos: this.fb.array([]),
-    });
+        pass1: ['', Validators.required],
+        pass2: ['', Validators.required],
+        direccion: this.fb.group({
+          distrito: ['', Validators.required],
+          ciudad: ['', Validators.required],
+        }),
+        pasatiempos: this.fb.array([]),
+      },
+      {
+        validators: this.validadores.passwordsIguales('pass1','pass2'),
+      }
+    );
   }
 
   agregarpasatiempo() {
@@ -138,6 +145,7 @@ export class ReactiveComponent implements OnInit {
     const pass1 = this.forma.get('pass1')?.value;
     const pass2 = this.forma.get('pass2')?.value;
 
+    //si el pass 1 es exactamente igual es falso si no verdadero
     return pass1 === pass2 ? false : true;
   }
 }
