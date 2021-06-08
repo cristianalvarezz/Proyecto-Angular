@@ -92,7 +92,7 @@
       />
     </div>
   </div> -->
-<!-- dentro de este objeto se tendra el distrito y la ciudad -->
+  <!-- dentro de este objeto se tendra el distrito y la ciudad -->
   <div class="form-group row" formGroupName="direccion">
     <label class="col-2 col-form-label">Direccion</label>
     <div class="form-row col">
@@ -115,6 +115,30 @@
           [class.is-invalid]="ciudadNoValido"
         />
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Pasatiempo</th>
+            <th>Borrar</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="pasatiempos">
+          <tr *ngFor="let control of pasatiempos.controls; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td><input type="form-control" type="text" [formControlName]="i" /></td>
+            <!-- para borrar el pasatiempo le mando la posicion del indice que quiero borrar -->
+            <td><button class="btn btn-danger" type="button" (click)="borrarpasatiempo(i)">Borrar</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- no quiero que este boton me haga todas las validacione sni me haga un submit -->
+     <!-- poniendo type no es un submit -->
+      <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarpasatiempo()">+ Agregar</button>
     </div>
   </div>
   <div class="form-group row">

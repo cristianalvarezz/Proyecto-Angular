@@ -33,8 +33,17 @@ export class ReactiveComponent implements OnInit {
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required],
       }),
+      pasatiempos:this.fb.array([ ])
     });
   }
+
+  agregarpasatiempo() {
+    this.pasatiempos.push(  this.fb.control('Nuevo elemento')  );
+  }
+  borrarpasatiempo(i: number) {
+    this.pasatiempos.removeAt(i);
+  }
+
   guardar() {
     console.log(this.forma);
     if (this.forma.invalid) {
@@ -54,8 +63,25 @@ export class ReactiveComponent implements OnInit {
       nombre: 'Sin nombre',
     });
   }
+  cargarDataAlFormulario() {
+    // this.forma.setValue({
+    this.forma.reset({
+      nombre: 'Christian  ',
+      apellido: 'Alvarez',
+      correo: 'bertel@gmail.com',
+      // pass1: '123',
+      // pass2: '123',
+      direccion: {
+        distrito: 'Ontario',
+        ciudad: 'Ottawa',
+      },
+    });
+    //es una manera de cargar el formulario dinamico nada mas 
+    ['comer','dormir'].forEach(valor=>this.pasatiempos.push(this.fb.control(valor)));
+  }
 
   //validaciones
+  //esto va hacer un return de el arreglo de pasatiempos 
   get pasatiempos() {
     return this.forma.get('pasatiempos') as FormArray;
   }
@@ -108,18 +134,5 @@ export class ReactiveComponent implements OnInit {
 
     return pass1 === pass2 ? false : true;
   }
-  cargarDataAlFormulario() {
-    // this.forma.setValue({
-    this.forma.reset({
-      nombre: 'Christian  ',
-      apellido: 'Alvarez',
-      correo: 'bertel@gmail.com',
-      // pass1: '123',
-      // pass2: '123',
-      direccion: {
-        distrito: 'Ontario',
-        ciudad: 'Ottawa',
-      },
-    });
-  }
+  
 }
