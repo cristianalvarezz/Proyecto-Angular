@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Loader } from '@googlemaps/js-api-loader';
+import { Marcador } from 'src/app/classes/marcador.class';
+
+
+
 
 @Component({
   selector: 'app-mapa',
@@ -7,17 +10,18 @@ import { Loader } from '@googlemaps/js-api-loader';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-  constructor() { }
-  ngOnInit(): void {
-    let loader =new Loader({
-      apiKey:'AIzaSyB6XO5d31IkJB2-QPDfDMcw0FVJjznqyB0'
-    })
-    loader.load().then(()=>{
-     new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center: { lat: -34.397, lng: 150.644  },
-        zoom: 8
-      });
-    })
+  lat = 51.678418;
+  lng = 7.809007;
+  marcadores:Marcador[]=[];
+  constructor() { 
+
+    const nuevoMarcado =new Marcador(51.678418,7.809007);
+    this.marcadores.push(nuevoMarcado);
   }
+  ngOnInit(): void {
+ 
+  }
+ 
+  
 
 }

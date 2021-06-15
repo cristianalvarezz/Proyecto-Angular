@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,32 +16,14 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   imports: [
     MatCardModule,
-    MatButtonModule,
-    MatMenuModule,
     MatToolbarModule,
-    MatIconModule,
-    MatGridListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatChipsModule,
-    MatSelectModule,MatProgressBarModule
+    MatProgressBarModule,MatButtonModule
 
   ],
   exports: [
     MatCardModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatGridListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatChipsModule,
-    MatSelectModule,MatProgressBarModule
+    MatToolbarModule,MatProgressBarModule,MatButtonModule
   ]
 })
+
 export class MaterialModule {}

@@ -1,12 +1,11 @@
+import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MaterialModule } from 'src/shared/material.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MaterialModule } from 'src/shared/material.module';
 import { MapaComponent } from './components/mapa/mapa.component';
-// import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -15,11 +14,10 @@ import { MapaComponent } from './components/mapa/mapa.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({apiKey: "AIzaSyB6XO5d31IkJB2-QPDfDMcw0FVJjznqyB0"}),
     MaterialModule,
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyCRtD3urSoSh751WCm5uN8LcJQMWtEQ6xo'
-    // })
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
