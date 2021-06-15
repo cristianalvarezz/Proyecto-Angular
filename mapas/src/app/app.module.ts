@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { MapaEditarComponent } from './components/mapa/mapa-editar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   entryComponents:[
@@ -15,11 +16,13 @@ import { MapaEditarComponent } from './components/mapa/mapa-editar.component';
   declarations: [
     AppComponent,
     MapaComponent,
-    MapaEditarComponent
+    MapaEditarComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({apiKey: "AIzaSyB6XO5d31IkJB2-QPDfDMcw0FVJjznqyB0"}),
     MaterialModule,
     BrowserAnimationsModule

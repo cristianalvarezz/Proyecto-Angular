@@ -53,5 +53,11 @@ export class MapaComponent implements OnInit {
       //informacion que quiero mandar
       data: {titulo: marcador.titulo, desc: marcador.desc}
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+     
+    });
   }
 }
