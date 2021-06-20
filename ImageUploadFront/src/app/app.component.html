@@ -19,8 +19,8 @@
   </div>
 </div>
 
-<div class="container row ">
-  <div class="col-md-6">
+<div class="container row">
+  <div class="col-md-4">
     <input
       type="text"
       class="form-control"
@@ -30,15 +30,58 @@
       name="name"
     />
   </div>
-  <div class="col-md-6">
-    <input type="button" (click)="obtenerImagenPorNombre()" value="Obtener imagen" />
+  <div class="col-md-4">
+    <input
+      type="button"
+      (click)="obtenerImagenPorNombre()"
+      value="Obtener imagen"
+    />
+  </div>
+  <div class="col-md-4">
+    <select class="form-control" name="miselect" [(ngModel)]="imageName">
+      <option [value]="item.name" *ngFor="let item of imagenes">
+        {{ item.name }}
+      </option>
+    </select>
   </div>
 </div>
-
 <div class="container row">
   <div class="col-md-12">
     <div *ngIf="retrievedImage">
-      <img [src]="retrievedImage" />
+      <img [src]="retrievedImage" width="100" height="100" />
     </div>
   </div>
+</div>
+
+<div class="container-row" style="margin-top: 10px">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre Foto</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Borrar</th>
+      </tr>
+    </thead>
+
+    <tbody *ngFor="let item of imagenes; let indice = index">
+      <tr>
+        <th></th>
+        <th scope="row">{{ item.id }}</th>
+        <td > 
+          <img [src]="vector[indice]" width="100" height="100" />
+          {{ obtenerImagenes(imagenes) }}
+          {{ obtenerImagenes(retrievedImage2)}}
+        </td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.type }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="borrarImagen(item.id,item)">
+           Borrar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

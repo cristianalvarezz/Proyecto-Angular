@@ -8,16 +8,26 @@ import { ImagenService } from './service/imagen.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(
-    private imageservice: ImagenService
-  ) {}
-
+  constructor(private imageservice: ImagenService) {
+    if (this.imageName != undefined) {
+      this.obtenerImagenPorNombre();
+    }
+  }
   selectedFile!: File;
   retrievedImage: any;
+  retrievedImage2: any;
   base64Data: any;
   retrieveResonse: any;
+
   message!: string;
   imageName: any;
+  imagenes: any;
+  imagenn: any;
+  vector: any[] = [];
+
+  ngOnInit(): void {
+    this.obtenerTodasLasImagenes();
+  }
 
   //Se llama cuando la usuario selecciona una imagen
   public onFileChanged(event: any) {
@@ -43,14 +53,53 @@ export class AppComponent {
     });
   }
 
-   //Se llama cuando el usuario hace clic en el botón recuperar imagen para obtener la imagen del back-end.
+  //Se llama cuando el usuario hace clic en el botón recuperar imagen para obtener la imagen del back-end.
   obtenerImagenPorNombre() {
-        //Hace una llamada a Sprinf Boot para obtener el byte de imagen.
+    //Hace una llamada a Sprinf Boot para obtener el byte de imagen.
     this.imageservice.obtenerImagen(this.imageName).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.retrieveResonse = res;
       this.base64Data = this.retrieveResonse.picByte;
       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+    });
+  }
+  borrarImagen(id: number, imagen: any) {
+    console.log(id);
+    console.log(imagen);
+
+    this.imageservice.eliminarImagen(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
+  obtenerImagenes(nombre: any) {
+    //Hace una llamada a Sprinf Boot para obtener el byte de imagen.
+
+    if (this.imagenn == undefined) {
+      this.imagenn = nombre;
+      for (let i = 0; i < this.imagenn.length; i++) {
+        // console.log(this.imagenn[i].name);
+        this.imageservice
+          .obtenerImagen(this.imagenn[i].name)
+          .subscribe((res) => {
+            // console.log(res);
+            this.retrieveResonse = res;
+            this.base64Data = this.retrieveResonse.picByte;
+            this.retrievedImage2 = 'data:image/jpeg;base64,' + this.base64Data;
+            // this.vector[i] = {
+            //   imagen: this.retrievedImage2,
+            //   // id: this.retrieveResonse.id,
+            // };
+            this.vector[i]=this.retrievedImage2;
+            console.log(this.vector);
+          });
+        //
+      }
+    }
+  }
+
+  obtenerTodasLasImagenes() {
+    this.imageservice.obtenerTodasLasImagenes().subscribe((res) => {
+      this.imagenes = res;
     });
   }
 }

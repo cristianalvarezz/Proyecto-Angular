@@ -17,6 +17,13 @@ public class ImageModel {
         this.picByte = picByte;
     }
 
+    public ImageModel(Long id, String name, String type, byte[] picByte) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +34,14 @@ public class ImageModel {
 
     @Column(name = "type")
     private String type;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     // Los bytes de imagen pueden tener grandes longitudes, por lo que especificamos un valor.
     //que es más que la longitud predeterminada para la columna picByte
