@@ -51,6 +51,7 @@ public class ImageUploadController {
                 decompressBytes(retrievedImage.get().getPicByte()));
         return img;
     }
+    @GetMapping(p)
 
     // comprimir los bytes de la imagen antes de almacenarla en la base de datos
     public static byte[] compressBytes(byte[] data) {
