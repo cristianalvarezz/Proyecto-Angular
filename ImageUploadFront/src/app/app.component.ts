@@ -1,17 +1,15 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { ImagenService } from './service/imagen.service';
 
+import { Component, OnInit } from '@angular/core';
+import { ImagenService } from './service/imagen.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   constructor(private imageservice: ImagenService) {
-    if (this.imageName != undefined) {
-      this.obtenerImagenPorNombre();
-    }
+    this.obtenerTodasLasImagenes();
   }
   selectedFile!: File;
   retrievedImage: any;
@@ -26,7 +24,7 @@ export class AppComponent {
   vector: any[] = [];
 
   ngOnInit(): void {
-    this.obtenerTodasLasImagenes();
+    
   }
 
   //Se llama cuando la usuario selecciona una imagen
@@ -66,10 +64,19 @@ export class AppComponent {
   borrarImagen(id: number, imagen: any) {
     console.log(id);
     console.log(imagen);
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: `Está seguro que desea borrar `,
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(resp =>{
+      if ( resp.value ) {
+        this.imageservice.eliminarImagen(id).subscribe((res) => {
+          console.log(res);
+        });
+      }
+    })
 
-    this.imageservice.eliminarImagen(id).subscribe((res) => {
-      console.log(res);
-    });
   }
   obtenerImagenes(nombre: any) {
     //Hace una llamada a Sprinf Boot para obtener el byte de imagen.

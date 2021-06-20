@@ -33,17 +33,12 @@ public class ImageUploadController {
     @PostMapping("/upload")
     public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
 
-        try {
             System.out.println("Original Image Byte Size - " + file.getBytes().length);
             ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
                     compressBytes(file.getBytes()));
             imageRepository.save(img);
             return ResponseEntity.status(HttpStatus.OK);
-        } catch (NonUniqueResultException e){
-            throw new RuntimeException(" Sube una buena imagen " + e.getMessage());
-        } catch (RuntimeException e){
-            throw new RuntimeException(" Sube una buena imagen " + e.getMessage());
-        }
+
     }
 
     @GetMapping(path = { "/get/{imageName}" })
