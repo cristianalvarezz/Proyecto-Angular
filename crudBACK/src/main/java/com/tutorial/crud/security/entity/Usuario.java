@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+//estas  clase la utilizamos para la base de datos
 @Entity
 public class Usuario {
     @Id

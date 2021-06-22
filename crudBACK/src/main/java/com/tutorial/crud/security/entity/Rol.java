@@ -5,6 +5,7 @@ import com.tutorial.crud.security.enums.RolNombre;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+//estas  clase la utilizamos para la base de datos
 @Entity
 public class Rol {
     @Id

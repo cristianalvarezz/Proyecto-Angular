@@ -19,7 +19,7 @@ import java.io.IOException;
 //si no devolvera una respuesta diciendo que no esta autorizado
 //se va a ejecutar una vez por cada peticion
 public class JwtTokenFilter extends OncePerRequestFilter {
-
+//obtiene el token en caso de que no sea nulo y lo valida y carga el usuario
     private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
@@ -48,7 +48,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(req, res);
     }
 
-    //extrae el token y elimina partes de este  
+    //extrae el token y elimina partes de este
     private String getToken(HttpServletRequest request){
         String header = request.getHeader("Authorization");
         if(header != null && header.startsWith("Bearer"))

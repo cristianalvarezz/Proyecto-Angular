@@ -13,6 +13,7 @@ import java.util.Date;
 
 //esta clase crea los token y crea los etodos para comprobar de que el token esta bien creado
 //no implementa ni hereda de ninguna otra clase
+//genera el token y lo valida
 @Component
 public class JwtProvider {
     private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);

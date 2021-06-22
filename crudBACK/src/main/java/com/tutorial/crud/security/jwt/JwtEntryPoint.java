@@ -13,6 +13,7 @@ import java.io.IOException;
 
 
 //este es un componente
+//esta clase verifica si hay token o no
 @Component
 public class JwtEntryPoint implements AuthenticationEntryPoint {
 

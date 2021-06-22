@@ -9,7 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-
+//esta convierte la clase en una clase convierte el usuario en un usuario principal
+//es una clase especifica para obtener lo privilegios de un usuario
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
