@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
+//lo que hace esta clase es obtener la autorizacion del usuario
 public class UsuarioPrincipal implements UserDetails {
-    
+
     private String nombre;
     private String nombreUsuario;
     private String email;
