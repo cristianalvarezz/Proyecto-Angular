@@ -1,9 +1,10 @@
 
 <app-menu></app-menu>
+<!-- si esta loggeado entra si no no  -->
 <div class="text-center" *ngIf="isLogged; else loggedOut">
     <h2>Ya has iniciado sesión</h2>
 </div>
-
+<!-- si no esta logueado se reemplaza y se pone todo esto  -->
 <ng-template #loggedOut>
     <div class="container d-flex justify-content-center">
         <div class="card">

@@ -33,20 +33,24 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //aqui comprobamos si estamos logueados
     if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
     }
   }
-
+//metodo de el login 
   onLogin(): void {
     this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
+    //una vez que tenemos los datos los pasamos al service del login 
     this.authService.login(this.loginUsuario).subscribe(
       (data:any) => {
+        //esta loggeado verdadero
         this.isLogged = true;
-
+        //usamos los token creados en el servicio todo esto se guardara en el storege
         this.tokenService.setToken(data.token);
+       //guardo el token nombre en set 
         this.tokenService.setUserName(data.nombreUsuario);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
@@ -58,10 +62,12 @@ export class LoginComponent implements OnInit {
       (err:any) => {
         this.isLogged = false;
         this.errMsj = err.error.message;
+
         this.toastr.error(this.errMsj, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        // console.log(err.error.message);
+        //este es el mensaje de error puesto en el back
+        console.log(err.error.message);
       }
     );
   }

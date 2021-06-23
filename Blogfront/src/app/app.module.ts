@@ -38,7 +38,7 @@ import { IndexComponent } from './index/index.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(), 
     HttpClientModule,
     FormsModule
   ],

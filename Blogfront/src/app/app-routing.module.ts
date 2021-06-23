@@ -12,7 +12,7 @@ import { RegistroComponent } from './auth/registro/registro.component';
 const routes: Routes = [
   {path:'',component:IndexComponent},
   {path:'login',component:LoginComponent},
-  {path:'registro',component:RegistroComponent},
+  { path: 'registro', component: RegistroComponent },
   {path: 'lista', component: ListaProductoComponent},
   {path: 'detalle/:id', component: DetalleProductoComponent},
   {path: 'nuevo', component: NuevoProductoComponent},
