@@ -21,6 +21,7 @@ import { interceptorProvider } from './interceptors/interceptor.component'
 
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { IndexComponent } from './index/index.component';
     LoginComponent,
     RegistroComponent,
     MenuComponent,
-    IndexComponent
+    IndexComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { IndexComponent } from './index/index.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(), 
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]
