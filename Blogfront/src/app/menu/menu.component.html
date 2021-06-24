@@ -1,3 +1,4 @@
+
 <div style="height: 80vh">
   <mat-toolbar color="warn">
     <mat-toolbar-row>
@@ -6,8 +7,7 @@
         (click)="sidenav.toggle()"
         fxShow="true"
         fxHide.gt-sm
-        class="nav-toggle"
-      >
+        class="nav-toggle">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Responsive Navigation</span>
@@ -50,7 +50,6 @@
       </nav>
     </mat-toolbar-row>
   </mat-toolbar>
-
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav>
       <mat-nav-list>
@@ -74,6 +73,11 @@
           <i class="icon fas fa-door-open"></i>Cerrar Sesión</a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>Main content</mat-sidenav-content>
+    <mat-sidenav-content>
+      <nav style="padding: 5px 10px">
+        <router-outlet></router-outlet>
+    
+      </nav>
+    </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

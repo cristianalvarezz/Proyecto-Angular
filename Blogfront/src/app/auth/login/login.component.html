@@ -1,56 +1,59 @@
-<app-menu></app-menu>
 <!-- si esta loggeado entra si no no  -->
 <div class="text-center" *ngIf="isLogged; else loggedOut">
   <h2>Ya has iniciado sesión</h2>
 </div>
 <!-- si no esta logueado se reemplaza y se pone todo esto  -->
+
 <ng-template #loggedOut>
-  <div class="container d-flex justify-content-center">
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="/login">Iniciar Sesión</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/registro">Crear Cuenta</a>
-          </li>
-        </ul>
-      </div>
-      <div class="card-body">
-        <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
-          <div class="form-group">
-            <label for="nombreUsuario">Nombre de Usuario</label>
-            <input
-              type="text"
-              name="nombreUsuario"
-              id="nombreUsuario"
-              class="form-control"
-              [(ngModel)]="nombreUsuario"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              class="form-control"
-              [(ngModel)]="password"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-outline-success btn-block"
-              [disabled]="!f.valid"
-            >
-              <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  <mat-card>
+    <br/>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <form class="example-form" #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombreUsuario">Nombre de usuario </mat-label>
+          <input
+            matInput
+            type="text"
+            name="nombreUsuario"
+            id="nombreUsuario"
+            class="form-control"
+            [(ngModel)]="nombreUsuario"
+            required
+            placeholder="Ex. user"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label for="password">password </mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="password"
+            required
+            placeholder="Ex. 123"
+          />
+        </mat-form-field>
+        <button
+          class="btn btn-outline-success btn-block"
+          [disabled]="!f.valid"
+          mat-raised-button
+          color="primary"
+        >
+          {{ "Enviar" | uppercase }}
+        </button>
+        <mat-button-toggle-group
+          name="fontStyle"
+          aria-label="Font Style"
+          class="cambiobtn"
+        >
+          <mat-button-toggle routerLink="/registro" value="italic"
+            >Crear Cuenta</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </ng-template>

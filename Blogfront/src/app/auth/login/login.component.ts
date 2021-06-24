@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
         this.toastr.success('Bienvenido ' + data.nombreUsuario, 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
+        window.location.reload();
         this.router.navigate(['/']);
       },
       (err:any) => {
@@ -70,6 +71,9 @@ export class LoginComponent implements OnInit {
         console.log(err.error.message);
       }
     );
+  }
+  redireccionar(){
+            this.router.navigate(['/']);
   }
 
 }

@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 
+
 import { interceptorProvider } from './interceptors/interceptor.component'
 
 import { MenuComponent } from './menu/menu.component';
@@ -35,6 +36,7 @@ import { MaterialModule } from './material.module';
     RegistroComponent,
     MenuComponent,
     IndexComponent,
+ 
 
   ],
   imports: [

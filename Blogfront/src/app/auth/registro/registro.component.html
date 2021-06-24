@@ -1,76 +1,83 @@
-<app-menu></app-menu>
 <div class="text-center" *ngIf="isLogged; else loggedOut">
   <h2>Ya has iniciado sesión</h2>
 </div>
+
 <ng-template #loggedOut>
-  <div class="container d-flex justify-content-center">
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="/registro">Crear Cuenta</a>
-          </li>
-        </ul>
-      </div>
-      <div class="card-body">
-        <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input
-              type="text"
-              name="nombre"
-              id="nombre"
-              class="form-control"
-              [(ngModel)]="nombre"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="nombreUsuario">Nombre de Usuario</label>
-            <input
-              type="text"
-              name="nombreUsuario"
-              id="nombreUsuario"
-              class="form-control"
-              [(ngModel)]="nombreUsuario"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              class="form-control"
-              [(ngModel)]="password"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Correo Electrónico</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              class="form-control"
-              [(ngModel)]="email"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-outline-success btn-block"
-              [disabled]="!f.valid"
-            >
-              <i class="fas fa-sign-in-alt"></i> Crear Cuenta
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  <mat-card>
+    <mat-card-title>registro</mat-card-title>
+    <mat-card-content>
+      <form #f="ngForm" (ngSubmit)="onRegister()" novalidatee>
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombre">Nombre </mat-label>
+          <input
+            matInput
+            type="text"
+            name="nombre"
+            id="nombre"
+            class="form-control"
+            [(ngModel)]="nombre"
+            required
+            placeholder="Ex. user"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombreUsuario">Nombre de usuario </mat-label>
+          <input
+            matInput
+            type="text"
+            name="nombreUsuario"
+            id="nombreUsuario"
+            class="form-control"
+            [(ngModel)]="nombreUsuario"
+            required
+            placeholder="Ex. user"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label for="email">Correo Electronico </mat-label>
+          <input
+            matInput
+            type="text"
+            name="email"
+            id="email"
+            class="form-control"
+            [(ngModel)]="email"
+            required
+            placeholder="Ex. christian@gmail.com"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label for="password">password </mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="password"
+            required
+            placeholder="Ex. 123"
+          />
+        </mat-form-field>
+        <button
+          class="btn btn-outline-success btn-block"
+          [disabled]="!f.valid"
+          mat-raised-button
+          color="primary"
+        >
+          <i class="fas fa-sign-in-alt"></i>
+          {{ "Crear Cuenta" | uppercase }}
+        </button>
+        <mat-button-toggle-group
+          name="fontStyle"
+          aria-label="Font Style"
+          class="cambiobtn"
+        >
+          <mat-button-toggle routerLink="/login"
+            >Login</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </ng-template>
