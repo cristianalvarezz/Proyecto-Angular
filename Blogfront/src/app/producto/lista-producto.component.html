@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="container">
   <table class="table table-dark">
     <thead>
@@ -26,5 +26,30 @@
     <button class="btn btn-outline-success btn-lg" routerLink="/nuevo">
       <i class="fas fa-plus-circle"></i> Nuevo Producto</button>
   </div>
-
+</div>
+-->
+<div>
+  <h3>
+     Todos nuestros productos
+  </h3>
+  <mat-form-field class="example-full-width" appearance="fill" style="padding:8px;margin:15px auto;width:30%;">
+    <mat-label>Buscar producto </mat-label>
+    <input matInput placeholder="Buscar producto" (keyup)="updateFilter($event)" >  
+  </mat-form-field>
+  <ngx-datatable
+    class="material"
+    [rows]="rows"
+    [columns]="columns"
+    [columnMode]="ColumnMode.force"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    rowHeight="auto"
+  >
+  </ngx-datatable>
+  <ng-template #hdrTpl let-column="column">
+    <strong>Nombre</strong>: {{ column.name }} !!
+  </ng-template>
+  <ng-template #editTmpl let-row="row" let-value="value">
+    {{ value | json }}
+  </ng-template>
 </div>

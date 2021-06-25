@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
-
+import { ColumnMode } from '@swimlane/ngx-datatable/public-api';
 
 import { interceptorProvider } from './interceptors/interceptor.component'
 
@@ -47,6 +47,7 @@ import { MaterialModule } from './material.module';
     HttpClientModule,
     FormsModule,
     MaterialModule
+    
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]

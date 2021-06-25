@@ -12,7 +12,8 @@ import { MatButtonModule} from "@angular/material/button"
 import { MatInputModule} from "@angular/material/input"
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatTableModule} from '@angular/material/table';
+import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 const myModule = [
   MatCardModule,
   BrowserModule,
@@ -25,7 +26,7 @@ const myModule = [
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
-  MatButtonToggleModule,MatTabsModule
+  MatButtonToggleModule,MatTabsModule,MatTableModule,NgxDatatableModule
 ];
 
 @NgModule({
