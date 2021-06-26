@@ -13,7 +13,7 @@
     />
   </mat-form-field>
   <ngx-datatable
-    class="material"
+    class="material striped"
     [rows]="rows"
     [columns]="columns"
     [columnMode]="ColumnMode.force"
@@ -21,6 +21,10 @@
     [footerHeight]="50"
     rowHeight="auto"
     [limit]="10"
+    [selected]="selected"
+    [selectionType]="SelectionType.multiClick"
+
+    (select)="onSelect($event)"
     
   >
   </ngx-datatable>

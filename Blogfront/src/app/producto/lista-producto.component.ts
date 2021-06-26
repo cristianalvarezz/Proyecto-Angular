@@ -3,11 +3,12 @@ import { Producto } from '../models/producto';
 import { ProductoService } from '../service/producto.service';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../service/token.service';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NuevoProductoComponent } from './nuevo-producto.component';
 import { DetalleProductoComponent } from './detalle-producto.component';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-lista-producto',
   templateUrl: './lista-producto.component.html',
@@ -18,7 +19,7 @@ export class ListaProductoComponent implements OnInit {
   roles!: string[];
   isAdmin = false;
   rows: Producto[] = [];
-
+  selected: any[] = [];
   //Ejemplo
   @ViewChild('editTmpl', { static: true }) editTmpl!: TemplateRef<any>;
   @ViewChild('hdrTpl', { static: true }) hdrTpl!: TemplateRef<any>;
@@ -31,6 +32,9 @@ export class ListaProductoComponent implements OnInit {
   ColumnMode = ColumnMode;
   //variable para el buscador
   temp: Producto[] = [];
+
+  //Seleccionar 
+  SelectionType = SelectionType;
 
   constructor(
     private productoService: ProductoService,
@@ -139,7 +143,6 @@ export class ListaProductoComponent implements OnInit {
   }
   updateFilter(event: any) {
     const val = event.target.value.toLowerCase();
-
     // filter our data
     const temp = this.temp.filter(function (d) {
       return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
@@ -147,16 +150,9 @@ export class ListaProductoComponent implements OnInit {
 
     // update the rows
     this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    // this.table.offset = 0;
-  }
-  // openDialog(): void {
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.animal = result;
-  //   });
-  // }
+  }
+
   crearProducto() {
     const dialogRef = this.dialog.open(NuevoProductoComponent, {
       // ancho de la pantalla
@@ -170,4 +166,16 @@ export class ListaProductoComponent implements OnInit {
       data: { id: prod.id, nombre: prod.nombre, precio: prod.precio },
     });
   }
+
+  //seleccionar producto
+ onSelect({selected} : {  selected: any } ) {
+    // console.log('Select Event', selected, this.selected);
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+    console.log(selected);  
+  }
+
+  // onActivate(event:any) {
+  //   console.log('Activate Event', event);
+  // }
 }
