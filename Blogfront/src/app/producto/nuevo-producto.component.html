@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row mt-5">
         <div class="col-md-4 mx-auto">
             <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
@@ -19,4 +19,88 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
+<!-- <mat-card>
+    <mat-card-content>
+      <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombre" rows="3">Nombre Producto</mat-label>
+          <input
+            matInput
+            type="text"
+            name="nombre"
+            id="nombre"
+            class="form-control"
+            [(ngModel)]="nombre" required
+            required
+            placeholder="Ex. Papa"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombreUsuario" rows="3">Precio producto</mat-label>
+          <input
+            matInput
+            type="text"
+            type="number"
+            id="precio" name="precio"
+            [(ngModel)]="precio" required
+            required
+            placeholder="Ex. user"
+          />
+        </mat-form-field>
+      
+        <button
+          class="btn btn-outline-success btn-block"
+          [disabled]="!f.valid"
+          mat-raised-button
+          color="primary"
+        >
+          <i class="fas fa-sign-in-alt"></i>
+          {{ "Crear" | uppercase }}
+        </button>
+        <mat-button-toggle-group
+          name="fontStyle"
+          aria-label="Font Style"
+          class="cambiobtn"
+        >
+          <mat-button-toggle routerLink="/lista"
+            >Volver</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </form>
+    </mat-card-content>
+  </mat-card> -->
+<form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Titulo"
+      matInput
+      type="number"
+      id="precio"
+      name="precio"
+      [(ngModel)]="precio"
+      required
+      placeholder="Ex. 1000$"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      rows="3"
+      matInput
+      type="text"
+      name="nombre"
+      id="nombre"
+      class="form-control"
+      [(ngModel)]="nombre" 
+      required
+      placeholder="Ex. papa"
+    >
+  </mat-form-field>
+  <button mat-raised-button color="primary" >
+    Crear
+  </button>
+  <button type="button" mat-raised-button color="warn" (click)="onNoClick()">
+    Cancelar
+  </button>
+</form>

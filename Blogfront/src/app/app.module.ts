@@ -26,6 +26,7 @@ import { MaterialModule } from './material.module';
 
 
 @NgModule({
+  entryComponents:[NuevoProductoComponent, DetalleProductoComponent],
   declarations: [
     AppComponent,
     ListaProductoComponent,

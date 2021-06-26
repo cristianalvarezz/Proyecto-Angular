@@ -1,22 +1,3 @@
-<!-- <div class="container">
-  <div class="row mt-5" *ngIf="producto">
-    <div class="col-md-4 mx-auto">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header text-center">
-              Detalle
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><b>ID: </b>{{producto.id}}</li>
-              <li class="list-group-item"><b>ID: </b>{{producto.nombre}}</li>
-              <li class="list-group-item"><b>ID: </b>{{producto.precio}}€</li>
-            </ul>
-            <div class="card-footer">
-                <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
-            </div>
-          </div>
-    </div>
-</div>
-</div> -->
 <mat-list *ngIf="producto">
   <mat-list-item><b>ID: </b>{{ producto.id }}</mat-list-item>
   <mat-divider></mat-divider>
@@ -24,8 +5,8 @@
   <mat-divider></mat-divider>
   <mat-list-item><b>ID: </b>{{ producto.precio }}€</mat-list-item>
   <mat-list-item>
-    <mat-button-toggle (click)="volver()"
-      >Volver</mat-button-toggle
+    <mat-button-toggle (click)=" onNoClick()"
+      >Cerrar</mat-button-toggle
     ></mat-list-item
   >
 </mat-list>

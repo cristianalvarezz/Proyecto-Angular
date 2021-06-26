@@ -4,7 +4,10 @@ import { ProductoService } from '../service/producto.service';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../service/token.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NuevoProductoComponent } from './nuevo-producto.component';
+import { DetalleProductoComponent } from './detalle-producto.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-lista-producto',
   templateUrl: './lista-producto.component.html',
@@ -32,7 +35,8 @@ export class ListaProductoComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private toastr: ToastrService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -43,7 +47,7 @@ export class ListaProductoComponent implements OnInit {
         this.isAdmin = true;
       }
     });
-    if(this.isAdmin){
+    if (this.isAdmin) {
       this.columns = [
         {
           cellTemplate: this.editTmpl,
@@ -76,7 +80,7 @@ export class ListaProductoComponent implements OnInit {
           name: 'editar',
         },
       ];
-    }else {
+    } else {
       this.columns = [
         {
           cellTemplate: this.editTmpl,
@@ -116,21 +120,22 @@ export class ListaProductoComponent implements OnInit {
   }
 
   borrar(id: any) {
-    this.productoService.delete(id).subscribe(
-      (data) => {
-        this.toastr.success('Producto Eliminado', 'OK', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-        });
-        this.cargarProductos();
-      },
-      (err) => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: `Está seguro que desea borrar `,
+      showConfirmButton: true,
+      showCancelButton: true,
+    }).then((resp) => {
+      if (resp.value) {
+        this.productoService.delete(id).subscribe((data) => {
+          this.toastr.success('Producto Eliminado', 'OK', {
+            timeOut: 1000,
+            positionClass: 'toast-top-center',
+          });
+          this.cargarProductos();
         });
       }
-    );
+    });
   }
   updateFilter(event: any) {
     const val = event.target.value.toLowerCase();
@@ -144,5 +149,25 @@ export class ListaProductoComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     // this.table.offset = 0;
+  }
+  // openDialog(): void {
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     this.animal = result;
+  //   });
+  // }
+  crearProducto() {
+    const dialogRef = this.dialog.open(NuevoProductoComponent, {
+      // ancho de la pantalla
+      width: '250px',
+    });
+  }
+  detalleProducto(prod: Producto) {
+    const dialogRef = this.dialog.open(DetalleProductoComponent, {
+      // ancho de la pantalla
+      width: '250px',
+      data: { id: prod.id, nombre: prod.nombre, precio: prod.precio },
+    });
   }
 }

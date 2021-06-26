@@ -3,6 +3,7 @@ import { ProductoService } from '../service/producto.service';
 import { Producto } from '../models/producto';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-nuevo-producto',
@@ -17,7 +18,8 @@ export class NuevoProductoComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<NuevoProductoComponent>
     ) { }
 
   ngOnInit() {
@@ -30,15 +32,20 @@ export class NuevoProductoComponent implements OnInit {
         this.toastr.success('Producto Creado', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-        this.router.navigate(['/']);
+        window.location.reload();
+        this.dialogRef.close();
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        this.router.navigate(['/']);
+        this.dialogRef.close();
       }
     );
+  }
+
+  onNoClick(){
+    this.dialogRef.close();
   }
 
 }

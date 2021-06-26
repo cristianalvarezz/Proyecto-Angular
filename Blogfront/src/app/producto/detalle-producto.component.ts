@@ -1,42 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductoService } from '../service/producto.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Producto } from '../models/producto';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-detalle-producto',
   templateUrl: './detalle-producto.component.html',
-  styleUrls: ['./detalle-producto.component.css']
+  styleUrls: ['./detalle-producto.component.css'],
 })
 export class DetalleProductoComponent implements OnInit {
-
-  producto!: Producto ;
+  producto!: Producto;
 
   constructor(
-    private productoService: ProductoService,
-    private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.productoService.detail(id).subscribe(
-      data => {
-        this.producto = data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.volver();
-      }
-    );
+    public dialogRef: MatDialogRef<DetalleProductoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    console.log(data);
+    this.producto = data;
   }
 
-  volver(): void {
-    this.router.navigate(['/lista']);
-  }
+  ngOnInit() {}
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

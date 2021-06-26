@@ -1,5 +1,5 @@
 <div>
-  <h3>Paginacion con ngx-datatable</h3>
+  <h3>Productos</h3>
   <mat-form-field
     class="example-full-width"
     appearance="fill"
@@ -21,6 +21,7 @@
     [footerHeight]="50"
     rowHeight="auto"
     [limit]="10"
+    
   >
   </ngx-datatable>
   <ng-template #hdrTpl let-column="column">
@@ -30,7 +31,8 @@
     {{ value }}
   </ng-template>
   <ng-template #detalle let-row="row" let-column="column" let-value="value">
-    <button mat-fab color="primary" routerLink="/detalle/{{ row.id }}">
+    <button mat-fab color="primary"  (click) = "detalleProducto(row)">
+      <!-- routerLink="/detalle/{{ row.id }} " -->
       <mat-icon>favorite</mat-icon>
     </button>
   </ng-template>
@@ -43,5 +45,10 @@
     <button mat-fab color="accent" routerLink="/editar/{{ row.id }}">
       <mat-icon> edit </mat-icon>
     </button>
+  
   </ng-template>
+ 
 </div>
+<button *ngIf="isAdmin" mat-stroked-button color="primary" (click)="crearProducto()"  style="margin-top: 10px; margin-left:96%;">
+  <mat-icon> add </mat-icon>
+</button>
