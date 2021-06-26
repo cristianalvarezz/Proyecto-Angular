@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row mt-5" *ngIf="producto">
     <div class="col-md-4 mx-auto">
         <div class="card" style="width: 18rem;">
@@ -14,7 +14,18 @@
                 <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
             </div>
           </div>
-          
     </div>
 </div>
-</div>
+</div> -->
+<mat-list *ngIf="producto">
+  <mat-list-item><b>ID: </b>{{ producto.id }}</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item><b>ID: </b>{{ producto.nombre }}</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item><b>ID: </b>{{ producto.precio }}€</mat-list-item>
+  <mat-list-item>
+    <mat-button-toggle (click)="volver()"
+      >Volver</mat-button-toggle
+    ></mat-list-item
+  >
+</mat-list>

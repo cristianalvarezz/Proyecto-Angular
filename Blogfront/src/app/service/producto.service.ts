@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../models/producto';
+import { Page } from '../models/page';
+import { PagedData } from '../models/paged-data';
+import { of } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +13,7 @@ import { Producto } from '../models/producto';
 export class ProductoService {
 
   productoURL = 'http://localhost:8080/producto/';
-
+ datosProductos:Producto[]=[];
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Producto[]> {
@@ -35,4 +39,5 @@ export class ProductoService {
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.productoURL + `delete/${id}`);
   }
+ 
 }
