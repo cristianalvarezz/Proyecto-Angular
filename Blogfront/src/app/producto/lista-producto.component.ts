@@ -33,14 +33,14 @@ export class ListaProductoComponent implements OnInit {
   //variable para el buscador
   temp: Producto[] = [];
 
-  //Seleccionar 
+  //Seleccionar
   SelectionType = SelectionType;
 
   constructor(
     private productoService: ProductoService,
     private toastr: ToastrService,
     private tokenService: TokenService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -150,7 +150,6 @@ export class ListaProductoComponent implements OnInit {
 
     // update the rows
     this.rows = temp;
-
   }
 
   crearProducto() {
@@ -168,11 +167,12 @@ export class ListaProductoComponent implements OnInit {
   }
 
   //seleccionar producto
- onSelect({selected} : {  selected: any } ) {
+  onSelect({ selected }: { selected: any }) {
     // console.log('Select Event', selected, this.selected);
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
-    console.log(selected);  
+    console.log(selected);
+    this.tokenService.getUserName();
   }
 
   // onActivate(event:any) {

@@ -10,14 +10,13 @@
         class="nav-toggle">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Responsive Navigation</span>
+      <span>Mi blog</span>
       <span class="menu-spacer"></span>
       <nav class="nav">
         <div fxShow="true" fxHide.lt-md>
           <!-- The following menu items will be hidden on both SM and XS screen sizes -->
           <a href="#" mat-button class="nav-texto" routerLink="/">
-            <i class="icon fas fa-home"></i>Inicio</a
-          >
+            <i class="icon fas fa-home"></i>Inicio</a>
           <a
             href="#"
             mat-button
@@ -34,8 +33,7 @@
             routerLink="/lista"
             *ngIf="isLogged"
           >
-            <i class="icon far fa-list-alt"></i>Lista</a
-          >
+            <i class="icon far fa-list-alt"></i>Lista</a>
           <a
             href="#"
             mat-button
@@ -44,8 +42,7 @@
             *ngIf="isLogged"
             (click)="onLogOut()"
           >
-            <i class="icon fas fa-door-open"></i>Cerrar Sesión</a
-          >
+            <i class="icon fas fa-door-open"></i>Cerrar Sesión</a>
         </div>
       </nav>
     </mat-toolbar-row>

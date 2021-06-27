@@ -16,4 +16,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByNombreUsuario(String nombreUsuario);
     //comprobar si existe el email
     boolean existsByEmail(String email);
+
+    /*
+    @Query(value = "SELECT nombre FROM usuario u WHERE u.nombre_usuario = :nombre",nativeQuery = true)
+    Optional<Usuario> buscarUsuario(@Param("nombre") String nombre );
+  */
 }
