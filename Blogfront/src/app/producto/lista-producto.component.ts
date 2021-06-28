@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NuevoProductoComponent } from './nuevo-producto.component';
 import { DetalleProductoComponent } from './detalle-producto.component';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-producto',
@@ -41,6 +42,7 @@ export class ListaProductoComponent implements OnInit {
     private toastr: ToastrService,
     private tokenService: TokenService,
     public dialog: MatDialog,
+    public router:Router
   ) {}
 
   ngOnInit() {
@@ -171,10 +173,36 @@ export class ListaProductoComponent implements OnInit {
     // console.log('Select Event', selected, this.selected);
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
-    console.log(selected);
+//    console.log(selected);
     this.tokenService.getUserName();
   }
 
+  cargarProducto(seleccionados: any[]){
+    
+      if(seleccionados.length>0 ){
+        Swal.fire({
+          title: 'Seguro quieres continuar ?',
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: `Continuar`,
+          denyButtonText: `No Continuar`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            // console.log(this.selected);
+            Swal.fire('Saved!', '', 'success')
+            console.log(this.productoService.productosElegidos(this.selected));
+            this.router.navigate(['carrito']);
+          }
+        })
+      }else {
+        Swal.fire(
+          'Debes elegir por lo menos un producto',
+          '',
+          'info'
+        )
+      }
+  }
   // onActivate(event:any) {
   //   console.log('Activate Event', event);
   // }

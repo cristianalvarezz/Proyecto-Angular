@@ -36,7 +36,7 @@
   <ng-template #detalle let-row="row" let-column="column" let-value="value">
     <button mat-fab color="primary"  (click) = "detalleProducto(row)">
       <!-- routerLink="/detalle/{{ row.id }} " -->
-      <mat-icon>favorite</mat-icon>
+      <mat-icon>grade</mat-icon>
     </button>
   </ng-template>
   <ng-template #borr let-row="row" let-column="column" let-value="value">
@@ -52,6 +52,9 @@
   </ng-template>
  
 </div>
-<button *ngIf="isAdmin" mat-stroked-button color="primary" (click)="crearProducto()"  style="margin-top: 10px; margin-left:96%;">
-  <mat-icon> add </mat-icon>
-</button>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style" style="margin-top: 10px; margin-left:70%;">
+  <mat-button-toggle *ngIf="isAdmin" mat-stroked-button color="primary" (click)="crearProducto()" > <mat-icon> add </mat-icon></mat-button-toggle>
+  <mat-button-toggle *ngIf="isAdmin" mat-stroked-button color="primary" (click)="cargarProducto(selected)" ><mat-icon> add_shopping_cart </mat-icon></mat-button-toggle>
+</mat-button-toggle-group>
+
+

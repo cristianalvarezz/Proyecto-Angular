@@ -23,6 +23,7 @@ import { interceptorProvider } from './interceptors/interceptor.component'
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
 import { MaterialModule } from './material.module';
+import { CarritoProductoComponent } from './producto/carrito-producto.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MaterialModule } from './material.module';
     RegistroComponent,
     MenuComponent,
     IndexComponent,
+    CarritoProductoComponent,
  
 
   ],

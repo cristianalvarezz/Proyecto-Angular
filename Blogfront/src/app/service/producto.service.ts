@@ -13,7 +13,8 @@ import { delay, map } from 'rxjs/operators';
 export class ProductoService {
 
   productoURL = 'http://localhost:8080/producto/';
- datosProductos:Producto[]=[];
+  datosProductos:Producto[]=[];
+
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Producto[]> {
@@ -38,6 +39,9 @@ export class ProductoService {
 
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.productoURL + `delete/${id}`);
+  }
+  public productosElegidos(datosProductos:Producto[]=[]) {
+    return datosProductos;
   }
  
 }
