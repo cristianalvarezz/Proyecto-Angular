@@ -1,0 +1,6 @@
+.controls{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 7px;
+}

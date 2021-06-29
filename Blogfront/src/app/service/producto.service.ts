@@ -40,8 +40,6 @@ export class ProductoService {
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.productoURL + `delete/${id}`);
   }
-  public productosElegidos(datosProductos:Producto[]=[]) {
-    return datosProductos;
-  }
+
  
 }

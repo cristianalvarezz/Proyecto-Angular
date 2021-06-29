@@ -191,7 +191,7 @@ export class ListaProductoComponent implements OnInit {
           if (result.isConfirmed) {
             // console.log(this.selected);
             Swal.fire('Saved!', '', 'success')
-            console.log(this.productoService.productosElegidos(this.selected));
+            localStorage.setItem('productosElegi',JSON.stringify(this.selected));
             this.router.navigate(['carrito']);
           }
         })

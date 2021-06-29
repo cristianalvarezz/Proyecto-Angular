@@ -1,1 +1,41 @@
-<p>carrito-producto works!</p>
+<ngx-datatable
+  class="material striped"
+  [rows]="productos"
+  [columns]="columns"
+  [columnMode]="ColumnMode.force"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  rowHeight="auto"
+  [summaryRow]="enableSummary"
+  [summaryPosition]="summaryPosition"
+  rowHeight="auto"
+  [summaryHeight]="55"
+></ngx-datatable>
+<div class="controls">
+  <div>
+    <input
+      id="enable-summary"
+      type="checkbox"
+      [checked]="enableSummary"
+      (change)="enableSummary = !enableSummary"
+    />
+    <label for="enable-summary">Mostrar suma</label>
+  </div>
+  <div>
+    <select id="position-select" (change)="onPositionSelectChange($event)" *ngIf="enableSummary">
+      <option [value]="'top'">Posicionar arriba</option>
+      <option [value]="'bottom'">Posicionar abajo</option>
+    </select>
+  </div>
+  <div>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle mat-stroked-button color="primary" (click)="volver()">
+          <mat-icon> arrow_left_alt</mat-icon></mat-button-toggle
+        >
+        <mat-button-toggle mat-stroked-button color="primary" (click)="realizarcompra()"
+          ><mat-icon> add_shopping_cart </mat-icon></mat-button-toggle
+        >
+      </mat-button-toggle-group>
+  </div>
+
+</div>
