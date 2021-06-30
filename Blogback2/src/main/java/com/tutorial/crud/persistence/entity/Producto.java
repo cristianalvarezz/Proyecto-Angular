@@ -32,10 +32,7 @@ public class Producto {
     public Producto() {
     }
 
-
-
-
-public Producto(Integer idProducto,String nombre,Integer idCategoria,Categoria categoria,  String codigoBarras, Float precio, Integer cantidadStock, boolean estado) {
+    public Producto(Integer idProducto,String nombre,Integer idCategoria,Categoria categoria,  String codigoBarras, Float precio, Integer cantidadStock, boolean estado) {
         this.idProducto=idProducto;
         this.nombre = nombre;
         this.idCategoria=idCategoria;
