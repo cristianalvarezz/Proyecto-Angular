@@ -8,7 +8,8 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule} from '@angular/forms'
+
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,6 @@ import { FormsModule} from '@angular/forms'
     
   ],
   // Coloco mi primer import personalizado
-  imports: [CommonModule, SharedModule,RouterModule,FormsModule],
+  imports: [CommonModule, SharedModule,RouterModule,ComponentsModule],
 })
 export class PagesModule {}
