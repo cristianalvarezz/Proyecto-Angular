@@ -6,7 +6,8 @@ const { getUsuarios, crearUsuario } = require("../controllers/usuarios");
 //importo el paquete  de validaciones 
 const {check} = require('express-validator')
 const router = Router();
-
+//importo validaciones 
+const {validarCampos } =require('../middlewares/validar-campos');
 //obtener usuarios
 router.get("/", getUsuarios);
 
@@ -20,6 +21,7 @@ router.post(
     check('nombre','nombre obligatorio').not().isEmpty(),
     check('password','password obligatorio').not().isEmpty(),
     check('email','email obligatorio').isEmail(),
+    validarCampos,
   ],
   crearUsuario
 );

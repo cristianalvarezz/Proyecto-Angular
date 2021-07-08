@@ -5,7 +5,7 @@ const { response } = require("express");
 const Usuario = require("../models/usuario");
 
 //aqui atrapo el resultado de la validacion 
-const { validationResult }=require('express-validator')
+
 
 const getUsuarios = async (req, res) => {
   //obtener todos los usuarios
@@ -27,14 +27,7 @@ const crearUsuario = async (req, res = response) => {
   //paso los atributos aqui
   const { email, password, nombre } = req.body;
 
-  //atrapo los erroes del middleware y creara todos los errores que pasaron en el req 
-    const errores =validationResult(req)
-    if(!errores.isEmpty()){
-        return res.status(400).json({
-            ok:false,
-            errors:errores.mapped()
-        });
-    }
+  
 
   try {
       //validar un correo 
