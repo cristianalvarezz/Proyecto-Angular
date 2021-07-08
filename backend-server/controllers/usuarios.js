@@ -1,7 +1,11 @@
+
 //tener la auidas de auto completado
 const { response } = require("express");
 //traigo los modelos
 const Usuario = require("../models/usuario");
+
+//aqui atrapo el resultado de la validacion 
+const { validationResult }=require('express-validator')
 
 const getUsuarios = async (req, res) => {
   //obtener todos los usuarios
@@ -23,6 +27,14 @@ const crearUsuario = async (req, res = response) => {
   //paso los atributos aqui
   const { email, password, nombre } = req.body;
 
+  //atrapo los erroes del middleware y creara todos los errores que pasaron en el req 
+    const errores =validationResult(req)
+    if(!errores.isEmpty()){
+        return res.status(400).json({
+            ok:false,
+            errors:errores.mapped()
+        });
+    }
 
   try {
       //validar un correo 
@@ -30,6 +42,7 @@ const crearUsuario = async (req, res = response) => {
     const exiteEmail = await Usuario.findOne({email})
 
     if( exiteEmail ){
+        //en caso de que el correo ya este registrado me devuelve esto 
         return res.status(400).json({
             ok:false,
             msg:'El correo ya esta registrado'
