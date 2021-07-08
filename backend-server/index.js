@@ -14,6 +14,9 @@ const app = express();
 //el use es una funcion que se ejecutara siempre para todas las lineas que siguen hacia abajo  
 app.use(cors());
 
+//Lectura y parseo del body 
+app.use( express.json() )
+
 //Base de datos
 dbConnection();
 
