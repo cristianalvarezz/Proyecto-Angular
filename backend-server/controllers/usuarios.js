@@ -4,7 +4,8 @@ const { response } = require("express");
 //traigo los modelos
 const Usuario = require("../models/usuario");
 
-//aqui atrapo el resultado de la validacion 
+//importo libreria para encriptar la contraseña
+const bcrypt = require('bcryptjs');
 
 
 const getUsuarios = async (req, res) => {
@@ -12,7 +13,7 @@ const getUsuarios = async (req, res) => {
   //a si especifico los campos
   //const usuarios = await Usuario.find({},'nombre');
 
-  const usuarios = await Usuario.find({}, "nombre email role google");
+  const usuarios = await Usuario.find({}, "nombre email password role google");
   res.json({
     ok: true,
     //aqui voy a retornar toda la coleccion de usuarios
@@ -26,8 +27,6 @@ const crearUsuario = async (req, res = response) => {
 
   //paso los atributos aqui
   const { email, password, nombre } = req.body;
-
-  
 
   try {
       //validar un correo 
@@ -44,6 +43,11 @@ const crearUsuario = async (req, res = response) => {
     }
     //lo paso al modelo del usuario
     const usuario = new Usuario(req.body);
+
+   //Encriptar contraseña
+   //genero numero de manera aleatoria  
+   const salt = bcrypt.genSaltSync();
+   usuario.password = bcrypt.hashSync(password,salt);
 
     //necesito esperar a que esta promesa termine antes de continuar con las siguientes lineas de codigo
     await usuario.save();
