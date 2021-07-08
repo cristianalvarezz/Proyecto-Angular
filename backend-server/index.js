@@ -19,7 +19,7 @@ dbConnection();
 
 //Rutas
 //cuando alguien pase por aqui voy a requerir y sera
-app.use( '/', require('./routes/usuarios') )
+app.use( '/api/usuarios', require('./routes/usuarios') )
 //lo que se solicita y lo que se responde
 
 app.listen( process.env.PORT ,()=>{
