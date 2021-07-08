@@ -1,11 +1,13 @@
 const express=require('express');
+//aqui leo las variables de entorno 
+require('dotenv').config();
 const { dbConnection } =require('./database/config')
 //crear el servidor de express
 const app = express();
 
 //Base de datos
 dbConnection();
-
+console.log(process.env);
 //Rutas
 //lo que se solicita y lo que se responde
 app.get('/', (req,res)=>{
@@ -14,8 +16,8 @@ app.get('/', (req,res)=>{
         msg:'Hola mundo'
     })
 });
-app.listen( 3000 ,()=>{
-    console.log('Servidor corriendo el puerto ', 3000)
+app.listen( process.env.PORT ,()=>{
+    console.log('Servidor corriendo el puerto '+ process.env.PORT)
 })
 
 

@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-
+require('dotenv').config();
 //funcion encargada de hacer la conexion
 const dbConnection = async () => {
 
     try{
     
         //esta funcion retorna una promesa
-        await mongoose.connect("mongodb+srv://mean_user:VaEF5jzD5NQ4T6Xa@cluster0.k96kk.mongodb.net/hospitaldb", {
+        await mongoose.connect(process.env.DB_CNN, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           useCreateIndex: true,
