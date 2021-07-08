@@ -35,6 +35,7 @@ const UsuarioSchema = Schema({
 UsuarioSchema.method('toJSON', function() {
 
     //del objeto estraido la version y assword y el resto de las propiedades
+  //de esta manera no regresare el password
     const { __v, _id, password, ...object } = this.toObject();
     object.uid = _id;
     return object;

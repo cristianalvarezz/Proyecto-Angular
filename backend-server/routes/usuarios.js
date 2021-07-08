@@ -2,12 +2,16 @@
     Ruta: /api/usuarios
 */
 const { Router } = require("express");
-const { getUsuarios, crearUsuario } = require("../controllers/usuarios");
-//importo el paquete  de validaciones 
-const {check} = require('express-validator')
+const {
+  getUsuarios,
+  crearUsuario,
+  actualizarUsuario,
+} = require("../controllers/usuarios");
+//importo el paquete  de validaciones
+const { check } = require("express-validator");
 const router = Router();
-//importo validaciones 
-const {validarCampos } =require('../middlewares/validar-campos');
+//importo validaciones
+const { validarCampos } = require("../middlewares/validar-campos");
 //obtener usuarios
 router.get("/", getUsuarios);
 
@@ -17,13 +21,23 @@ router.post(
   "/",
   [
     //son varios middle  a ocupar
-    //estos campos no pueden estar vacios 
-    check('nombre','nombre obligatorio').not().isEmpty(),
-    check('password','password obligatorio').not().isEmpty(),
-    check('email','email obligatorio').isEmail(),
+    //estos campos no pueden estar vacios
+    check("nombre", "nombre obligatorio").not().isEmpty(),
+    check("password", "password obligatorio").not().isEmpty(),
+    check("email", "email obligatorio").isEmail(),
     validarCampos,
   ],
   crearUsuario
+);
+//actualizar usuario
+router.put(
+  "/:id",
+  [
+    check("nombre", "nombre obligatorio").not().isEmpty(),
+    check("email", "email obligatorio").isEmail(),
+    check("role", " El role es obligatorio ").not().isEmpty()
+  ],
+  actualizarUsuario
 );
 
 module.exports = router;
