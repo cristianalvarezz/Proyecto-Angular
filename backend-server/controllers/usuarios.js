@@ -2,6 +2,7 @@
 const { response } = require("express");
 //traigo los modelos
 const Usuario = require("../models/usuario");
+const { generarJWT } = require('../helpers/jwt');
 
 //importo libreria para encriptar la contraseña
 const bcrypt = require("bcryptjs");
@@ -16,6 +17,7 @@ const getUsuarios = async (req, res) => {
     ok: true,
     //aqui voy a retornar toda la coleccion de usuarios
     usuarios,
+    uid:req.uid
   });
 };
 
@@ -46,13 +48,18 @@ const crearUsuario = async (req, res = response) => {
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
 
+    //
     //necesito esperar a que esta promesa termine antes de continuar con las siguientes lineas de codigo
     await usuario.save();
+    //geneto el token para mostrarlo 
+    const token = await generarJWT( usuario.id );
+
 
     res.json({
       ok: true,
       //aqui voy a retornar toda la coleccion de usuarios
       usuario,
+      token
     });
   } catch (error) {
     console.log(error);
@@ -61,7 +68,7 @@ const crearUsuario = async (req, res = response) => {
       msg: "Error inesperado ",
     });
   }
-};
+};  
 //Acutualizar usuario
 const actualizarUsuario = async (req, res = response) => {
   const uid = req.params.id;

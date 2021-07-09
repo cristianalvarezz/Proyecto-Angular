@@ -13,14 +13,18 @@ const { check } = require("express-validator");
 const router = Router();
 //importo validaciones
 const { validarCampos } = require("../middlewares/validar-campos");
-//obtener usuarios
-router.get("/", getUsuarios);
+//calidar token 
+const { validarJWT} =require('../middlewares/validar-jwt');
 
+
+//obtener usuarios
+router.get("/",validarJWT, getUsuarios);
 //crear usuario
 //el middleware son funciones que siempre se van a ejecutar
 router.post(
   "/",
   [
+    validarJWT,
     //son varios middle  a ocupar
     //estos campos no pueden estar vacios
     check("nombre", "nombre obligatorio").not().isEmpty(),
@@ -34,6 +38,7 @@ router.post(
 router.put(
   "/:id",
   [
+    validarJWT,
     check("nombre", "nombre obligatorio").not().isEmpty(),
     check("email", "email obligatorio").isEmail(),
     check("role", " El role es obligatorio ").not().isEmpty(),
@@ -42,6 +47,6 @@ router.put(
   actualizarUsuario
 );
 //borrar
-router.delete( "/:id",borrarUsuario)
+router.delete( "/:id", validarJWT,borrarUsuario)
 
 module.exports = router;
