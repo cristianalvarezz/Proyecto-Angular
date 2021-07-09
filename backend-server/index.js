@@ -20,9 +20,9 @@ app.use( express.json() )
 //Base de datos
 dbConnection();
 
-//Rutas
-//cuando alguien pase por aqui voy a requerir y sera
-app.use( '/api/usuarios', require('./routes/usuarios') )
+// Rutas
+app.use( '/api/usuarios', require('./routes/usuarios') );
+app.use( '/api/login', require('./routes/auth') );
 //lo que se solicita y lo que se responde
 
 app.listen( process.env.PORT ,()=>{
