@@ -77,26 +77,25 @@ const actualizarUsuario = async (req, res = response) => {
         msg: "No existe un usuario por ese id  ",
       });
     }
-    const campos = req.body;
-    if (usuarioDB.email===req.body.email) {
-      //el delete lo utilizo para los campos que no voy a actualizar
-      delete campos.email;
-    }else{
-      //significa que tengo quwe verificar que no exista un uausrio con el mismo correo 
-      const existeEmail =await Usuario.findOne({email:req.body.email});
-        if(existeEmail){
+
+  // Actualizaciones
+  const { password, google, email, ...campos } = req.body;
+
+  if ( usuarioDB.email !== email ) {
+
+      const existeEmail = await Usuario.findOne({ email });
+      if ( existeEmail ) {
           return res.status(400).json({
-            ok:false,
-            msg:'Ya este correo existe'
-          })
-        }
-    }
-    //si llego a qui el usuario existe
-    //Actualizacion
-    delete campos.password;
-    delete campos.google;
-    //el new true es para que me regrese el nuevo resultado 
-    const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos,{new: true });
+              ok: false,
+              msg: 'Ya existe un usuario con ese email'
+          });
+      }
+  }
+  
+  campos.email = email;
+  const usuarioActualizado = await Usuario.findByIdAndUpdate( uid, campos, { new: true } );
+
+
     res.json({
       ok: true,
       usuario: usuarioActualizado,
@@ -109,9 +108,35 @@ const actualizarUsuario = async (req, res = response) => {
     });
   }
 };
+const borrarUsuario=async(req,res=response)=>{
+  const uid = req.params.id;
+
+  try{
+    const usuarioDB = await Usuario.findById(uid);
+
+    if (!usuarioDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No existe un usuario por ese id  ",
+      });
+    }
+    await Usuario.findByIdAndDelete(uid);
+    res.json({
+      ok:true,
+      msg:'Usuario Eliminado'
+    }) 
+  }catch(error){
+    console.log(error);
+    res.status(500).json({
+      msg:"Error inesperado "
+    })
+  }
+ 
+}
 //no olvida exportar
 module.exports = {
   getUsuarios,
   crearUsuario,
   actualizarUsuario,
+  borrarUsuario
 };

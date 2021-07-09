@@ -6,6 +6,7 @@ const {
   getUsuarios,
   crearUsuario,
   actualizarUsuario,
+  borrarUsuario
 } = require("../controllers/usuarios");
 //importo el paquete  de validaciones
 const { check } = require("express-validator");
@@ -35,9 +36,12 @@ router.put(
   [
     check("nombre", "nombre obligatorio").not().isEmpty(),
     check("email", "email obligatorio").isEmail(),
-    check("role", " El role es obligatorio ").not().isEmpty()
+    check("role", " El role es obligatorio ").not().isEmpty(),
+    validarCampos,
   ],
   actualizarUsuario
 );
+//borrar
+router.delete( "/:id",borrarUsuario)
 
 module.exports = router;
