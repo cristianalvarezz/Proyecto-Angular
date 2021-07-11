@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   menuItems: any[];
 
-  constructor( public sidebarService: SidebarService ) {
+  constructor( private sidebarService: SidebarService ) {
     this.menuItems = sidebarService.menu;
     console.log(this.menuItems)
   }
