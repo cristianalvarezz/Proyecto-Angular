@@ -14,7 +14,8 @@
         <div class="card card-body">
             <div class="row">
                 <div class="col-md-4 col-lg-3 text-center">
-                    <a href="app-contact-detail.html"><img src="https://image.tmdb.org/t/p/w300{{item.poster_path}}" alt="user" class="img-circle img-responsive"></a>
+                    
+                    <a href="app-contact-detail.html"><img src="{{item.poster_path | noImagen}}" alt="user" class="img-circle img-responsive"></a>
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <h3 class="box-title m-b-0">{{item.original_title}}</h3> <small>{{item.title}}</small>

@@ -6,7 +6,8 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReducirTextoPipe } from './pipes/reducir-texto.pipe';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { NoImagenPipe } from './pipes/no-imagen.pipe'
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms'
     PeliculasComponent,
     PagesComponent,
     ReducirTextoPipe,
+    NoImagenPipe,
 
   ],
   exports:[

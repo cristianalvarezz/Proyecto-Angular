@@ -44,9 +44,8 @@ export class PeliculasComponent implements OnInit {
     console.log(busqueda);
     this._ps.elegirtipodebusqueda(busqueda)?.subscribe(
       (data: any) => {
-        console.log("Esto no "+data);
+        console.log(data);
         this.peliculasPopulares = data;
-        console.log("Esto no "+data);
         this.loading = false;
       },
       (errorServicio) => {
