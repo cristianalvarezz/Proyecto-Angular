@@ -10,14 +10,7 @@
       {{ item }}
     </option>
   </select>
-</div>
-<app-mensaje *ngIf="noExiste" [titulo]="mensaje"></app-mensaje>
-<app-targetpelis
-  *ngIf="!noExiste"
-  [peliculas]="peliculasPopulares"
-></app-targetpelis>
-
-<div class="input-group">
+  <div class="input-group">
     <span class="input-group-btn">
       <button class="btn btn-primary" (click)="cambiarValor(-1)" type="button">
           <i class="fa fa-minus"></i>
@@ -36,3 +29,11 @@
       </button>
     </span>
   </div>
+</div>
+<app-mensaje *ngIf="noExiste" [titulo]="mensaje"></app-mensaje>
+<app-targetpelis
+  *ngIf="!noExiste"
+  [peliculas]="peliculasPopulares"
+></app-targetpelis>
+
+

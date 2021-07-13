@@ -13,7 +13,7 @@ export class PeliculasComponent implements OnInit {
   error: boolean = false;
   seleccionado: any;
   mensaje =" No existen mas peliculas en este listado devuelvete "
-  pagina ="";
+  busqueda =1;
 
   lista: string[] = [
     '¿Qué películas hay en los cines?',
@@ -41,13 +41,14 @@ export class PeliculasComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void{
+    localStorage.removeItem('busqueda');
+  }
   elegirtipodebusqueda(busqueda: any) {
-   // this.pagina = JSON.parse(localStorage.getItem('pagina') || '');
-    //console.log("Esta es la pagina"+ this.pagina);
+    this.guardarStorage(busqueda);
     this._ps.elegirtipodebusqueda(busqueda)?.subscribe(
       (data: any) => {
         this.peliculasPopulares = data;
-        
         this.nohaydatos(this.peliculasPopulares);
       },
       (errorServicio) => {
@@ -68,28 +69,31 @@ export class PeliculasComponent implements OnInit {
 
  progreso1: number = 1;
 
-  get getProgreso1() {
-    
-    return `${ this.progreso1 }`;
-  }
-
-
   cambiarValor( valor: number=0 ) {
     if ( this.progreso1 >= 100 && valor >= 0 ) {
       return this.progreso1 = 100;
     }
-
     if ( this.progreso1 <= 0 && valor < 0 ) {
       return this.progreso1 = 0;
     }
     this.progreso1 = this.progreso1 + valor;
-    this.guardarStorage( this.progreso1);
+    this.busqueda = JSON.parse(localStorage.getItem('busqueda') || '');
+    this._ps.elegirtipodebusqueda(this.busqueda,this.progreso1)?.subscribe(
+      (data: any) => {
+        this.peliculasPopulares = data;
+        this.nohaydatos(this.peliculasPopulares);
+      },
+      (errorServicio) => {
+        this.error = true;
+        this.mensajeError = errorServicio.error.error.message;
+      }
+    );
     return
   }
 
   guardarStorage(number:any) {
     //transformo el arreglo de marcadores en un json
-    localStorage.setItem('pagina', JSON.stringify(number));
+    localStorage.setItem('busqueda', JSON.stringify(number));
   }
   ngOnInit(): void {}
 }
