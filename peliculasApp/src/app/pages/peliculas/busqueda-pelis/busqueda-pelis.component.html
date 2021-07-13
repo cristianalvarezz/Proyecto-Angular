@@ -1,0 +1,12 @@
+<div class="form-material m-t-40">
+  <label>Busca tu pelicula <span class="help"></span></label>
+  <input type="text" 
+  class="form-control form-control-line"
+  #termino
+  (keyup)="buscar(termino.value)" />
+</div>
+
+<div class="container mt-5 animated fadeIn">
+  <app-mensaje *ngIf="noExiste" [titulo]="mensaje"></app-mensaje>
+  <app-targetpelis *ngIf="!noExiste" [peliculas]="pelicula"></app-targetpelis>
+</div>

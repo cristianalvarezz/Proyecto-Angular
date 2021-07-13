@@ -1,32 +1,38 @@
-
-<div class="col-md-5 align-self-center">
-    <h2 class="text-themecolor">PELICULAS</h2>
-</div>
 <div class="form-group">
-    <label>Elige una opcion </label>
-    <select class="form-control" name="miselect" [(ngModel)]="seleccionado" (ngModelChange)="elegirtipodebusqueda($event)" >
-        <option [value]="indice" *ngFor="let item of lista;let indice=index">{{item}}</option>
-    </select>
+  <label>Elige una opcion </label>
+  <select
+    class="form-control"
+    name="miselect"
+    [(ngModel)]="seleccionado"
+    (ngModelChange)="elegirtipodebusqueda($event)"
+  >
+    <option [value]="indice" *ngFor="let item of lista; let indice = index">
+      {{ item }}
+    </option>
+  </select>
 </div>
-<div class="row" >
-    <!-- .col -->
-    <div class="col-md-4 col-lg-4 col-xlg-4" *ngFor="let item of peliculasPopulares">
-        <div class="card card-body">
-            <div class="row">
-                <div class="col-md-4 col-lg-3 text-center">
-                    
-                    <a href="app-contact-detail.html"><img src="{{item.poster_path | noImagen}}" alt="user" class="img-circle img-responsive"></a>
-                </div>
-                <div class="col-md-8 col-lg-9">
-                    <h3 class="box-title m-b-0">{{item.original_title}}</h3> <small>{{item.title}}</small>
-                    <address>
-                       {{item.overview |reducirTexto}}...
-                        <br/>
-                        <br/>
-                        <abbr title="">Fecha:</abbr> {{item.release_date}}
-                    </address>
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>
+<app-mensaje *ngIf="noExiste" [titulo]="mensaje"></app-mensaje>
+<app-targetpelis
+  *ngIf="!noExiste"
+  [peliculas]="peliculasPopulares"
+></app-targetpelis>
+
+<div class="input-group">
+    <span class="input-group-btn">
+      <button class="btn btn-primary" (click)="cambiarValor(-1)" type="button">
+          <i class="fa fa-minus"></i>
+      </button>
+    </span>
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Progreso"
+      [(ngModel)]="progreso1"
+      disabled
+    />
+    <span class="input-group-btn">
+      <button class="btn btn-success" type="button" (click)="cambiarValor(1)">
+          <i class="fa fa-plus"></i>
+      </button>
+    </span>
+  </div>

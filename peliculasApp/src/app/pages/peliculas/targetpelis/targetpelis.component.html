@@ -1,0 +1,24 @@
+<div class="row" >
+    <!-- .col -->
+    <div class="col-md-4 col-lg-4 col-xlg-4" *ngFor="let item of peliculas">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-md-4 col-lg-3 text-center">        
+                    <a href="app-contact-detail.html"><img src="{{item.poster_path | noImagen}}" alt="user" class="img-circle img-responsive"></a>
+                </div>
+                <div class="col-md-8 col-lg-9">
+                    <h3 class="box-title m-b-0">{{item.original_title | reducirTexto}}</h3> <small>{{item.title}}</small>
+                    <address>
+                       {{item.overview | reducirTexto}}
+                        <br/>
+                        <br/>
+                        <abbr title="">Fecha:</abbr> {{item.release_date}}
+                    </address>
+                </div>
+                <button type="button" class="btn waves-effect waves-light btn-rounded btn-success" style="margin-left: 60%;" (click)="verPelicula(item)">Detalle</button>
+            </div>
+        </div>
+    </div> 
+    
+</div>
+

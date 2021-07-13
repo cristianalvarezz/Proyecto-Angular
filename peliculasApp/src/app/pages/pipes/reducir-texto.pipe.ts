@@ -8,8 +8,10 @@ export class ReducirTextoPipe implements PipeTransform {
   arrayTextoLimpio: any;
   transform(value: string, ...args: unknown[]): string {
 
-    
-    return value.slice(0,100) ;
+    if(value.length>100){    
+      return value.slice(0,100) +"..." ;
+    }
+    return value.slice(0,20);
   }
 
 }

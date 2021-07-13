@@ -11,6 +11,7 @@ export class SidebarService {
       icono: 'mdi-movie',
       submenu: [
         { titulo: 'Todas las peliculas', url: 'peliculas' },
+        { titulo: 'Busqueda de pelicula', url: 'busqueda' },
         // { titulo: 'Main', url: '/' },
         // { titulo: 'Gráficas', url: 'grafica1' },
         // { titulo: 'rxjs', url: 'rxjs' },

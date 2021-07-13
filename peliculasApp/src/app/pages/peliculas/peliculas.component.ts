@@ -8,10 +8,12 @@ import { PeliculasService } from 'src/app/services/peliculas.service';
 })
 export class PeliculasComponent implements OnInit {
   peliculasPopulares: any[] = [];
-  loading: boolean = true;
+  noExiste: boolean = false;
   mensajeError: any | undefined;
   error: boolean = false;
   seleccionado: any;
+  mensaje =" No existen mas peliculas en este listado devuelvete "
+  pagina ="";
 
   lista: string[] = [
     '¿Qué películas hay en los cines?',
@@ -22,15 +24,14 @@ export class PeliculasComponent implements OnInit {
     '¿Cuáles son los mejores dramas que se estrenaron este año?',
     '¿Cuáles son las películas de ciencia ficción mejor calificadas en las que ha estado Tom Cruise?',
     '¿Cuáles son las comedias más taquilleras de Will Ferrell?',
-    '¿Cuáles son los mejores dramas? ',
   ];
 
   constructor(public _ps: PeliculasService) {
     this._ps.getPopulares().subscribe(
       (data: any) => {
         this.peliculasPopulares = data.results;
-        console.log(data);
-        this.loading = false;
+        this.nohaydatos(this.peliculasPopulares);
+      
       },
       (errorServicio) => {
         this.error = true;
@@ -41,21 +42,54 @@ export class PeliculasComponent implements OnInit {
   }
 
   elegirtipodebusqueda(busqueda: any) {
-    console.log(busqueda);
+   // this.pagina = JSON.parse(localStorage.getItem('pagina') || '');
+    //console.log("Esta es la pagina"+ this.pagina);
     this._ps.elegirtipodebusqueda(busqueda)?.subscribe(
       (data: any) => {
-        console.log(data);
         this.peliculasPopulares = data;
-        this.loading = false;
+        
+        this.nohaydatos(this.peliculasPopulares);
       },
       (errorServicio) => {
         this.error = true;
         this.mensajeError = errorServicio.error.error.message;
       }
     );
-
-    //console.log(busqueda); // Aquí iría tu lógica al momento de seleccionar algo
+  }
+  nohaydatos(dato: any) {
+ 
+    if (dato.length == 0) {
+      this.noExiste = true;
+    } else {
+      this.noExiste = false;
+    }
   }
 
+
+ progreso1: number = 1;
+
+  get getProgreso1() {
+    
+    return `${ this.progreso1 }`;
+  }
+
+
+  cambiarValor( valor: number=0 ) {
+    if ( this.progreso1 >= 100 && valor >= 0 ) {
+      return this.progreso1 = 100;
+    }
+
+    if ( this.progreso1 <= 0 && valor < 0 ) {
+      return this.progreso1 = 0;
+    }
+    this.progreso1 = this.progreso1 + valor;
+    this.guardarStorage( this.progreso1);
+    return
+  }
+
+  guardarStorage(number:any) {
+    //transformo el arreglo de marcadores en un json
+    localStorage.setItem('pagina', JSON.stringify(number));
+  }
   ngOnInit(): void {}
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { JsonpClientBackend } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeliculasService {
+
   private apikey: string = 'ed10152b5620743348761b0985899a52';
   private urlMoviedb: string = 'https://api.themoviedb.org/3/discover/movie';
 
@@ -17,16 +18,25 @@ export class PeliculasService {
 
     return this.http.get(url).pipe(map((res: any) => res));
   }
-  getQuery(query: string) {
-    const url = `${this.urlMoviedb}/${query}/&api_key=${this.apikey}&lenguage=es`;
+  getQuery(query: string,numero?:number) {
+    const url = `${this.urlMoviedb}/${query}/&api_key=${this.apikey}&lenguage=es&page=100`;
     return this.http.get(url);
   }
 
   buscarPelicula(texto: string) {
-    let url = `${this.urlMoviedb}/search/movie?query=${texto}&sort_by=popularity.desc&api_key=${this.apikey}&lenguage=es`;
-
-    return this.http.get(url).pipe(map((res: any) => res));
+    //https://api.themoviedb.org/3/find/{external_id}?api_key=<<api_key>>&language=en-US&external_source=imdb_id
+  
+    let url2=`https://api.themoviedb.org/3/movie/${texto}?api_key=${this.apikey}`
+    return this.http.get(url2).pipe(map((res: any) => res));
   }
+
+
+  buscarPeliculatexto(texto: string) {
+    let url = `https://api.themoviedb.org/3/search/movie?query=${texto}&api_key=${this.apikey}&lenguage=es`;
+    return this.http.get(url).pipe(map((res: any) => res.results));
+  }
+
+
 
   elegirtipodebusqueda(seleccionado: number) {
     // console.log("El numero seleccionado es "+seleccionado);
@@ -62,10 +72,7 @@ export class PeliculasService {
       return this.getQuery('?with_genres=35&with_cast=23659&sort_by=revenue.desc').pipe(
         map((res: any) => res.results));
     }
-    if(seleccionado==8){
-      return this.getQuery('?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10').pipe(
-        map((res: any) => res.results));
-    }
+   
     return;
    
   }

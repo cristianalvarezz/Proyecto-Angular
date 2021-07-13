@@ -7,7 +7,12 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReducirTextoPipe } from './pipes/reducir-texto.pipe';
 import { FormsModule } from '@angular/forms';
-import { NoImagenPipe } from './pipes/no-imagen.pipe'
+import { NoImagenPipe } from './pipes/no-imagen.pipe';
+import { TargetpelisComponent } from './peliculas/targetpelis/targetpelis.component';
+import { DetallePelisComponent } from './peliculas/detalle-pelis/detalle-pelis.component';
+import { BusquedaPelisComponent } from './peliculas/busqueda-pelis/busqueda-pelis.component';
+import { MensajeComponent } from './peliculas/components/mensaje/mensaje.component';
+import { IncrementadorComponent } from './peliculas/components/incrementador/incrementador.component'
 
 @NgModule({
   declarations: [
@@ -16,6 +21,11 @@ import { NoImagenPipe } from './pipes/no-imagen.pipe'
     PagesComponent,
     ReducirTextoPipe,
     NoImagenPipe,
+    TargetpelisComponent,
+    DetallePelisComponent,
+    BusquedaPelisComponent,
+    MensajeComponent,
+    IncrementadorComponent,
 
   ],
   exports:[

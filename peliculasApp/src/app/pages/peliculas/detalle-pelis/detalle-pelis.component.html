@@ -1,0 +1,66 @@
+<div class="col-lg-12 col-xlg-12 col-md-12">
+  <div class="card">
+    <div class="card-body">
+      <div class="row text-center justify-content-md-center">
+        <div class="col-12">
+          <a href="{{ pelicula.homepage }}">
+            <img src="{{ pelicula.poster_path | noImagen }}" width="150" />
+          </a>
+        </div>
+        <div>
+          <h4 class="card-title m-t-10">{{ pelicula.original_title }}</h4>
+        </div>
+        <div class="col-12">
+          <h6 class="card-subtitle">{{ pelicula.title }}</h6>
+        </div>
+      </div>
+      <div class="row text-center justify-content-md-center">
+        <div class="col-4">
+          <a href="javascript:void(0)" class="link"
+            ><i class="icon-people"></i>
+            <font class="font-medium">{{ pelicula.popularity }}</font></a
+          >
+        </div>
+        <div class="col-4">
+          <a href="javascript:void(0)" class="link"
+            ><i class="icon-calender"></i>
+            <font class="font-medium">{{ pelicula.release_date }}</font></a
+          >
+        </div>
+      </div>
+    </div>
+    <div>
+      <hr />
+    </div>
+    <div class="card-body">
+      <small class="text-muted">overview</small>
+      <h6>{{ pelicula.overview }}</h6>
+      <!-- *ngForm="let item of pelicula.genres" -->
+      <small class="text-muted p-t-30 db">genres</small>
+      <h6 *ngFor="let p of pelicula.genres">
+        <li>{{ p.name }}</li>
+      </h6>
+      <small class="text-muted p-t-30 db">production companies</small>
+      <img
+        *ngFor="let p of pelicula.production_companies"
+        data-toggle="tooltip"
+        title="Default tooltip"
+        title="{{ p.name }}"
+        src="{{ p.logo_path | noImagen }}"
+        alt=""
+        width="150"
+      />
+      <small class="text-muted p-t-30 db">production companies</small>
+      <h6 *ngFor="let p of pelicula.production_countries">
+        <li>{{ p.iso_3166_1 }}</li>
+      </h6>
+      <br />
+    </div>
+    <button
+      class="btn btn-rounded btn-success"
+      routerLink="/dashboard/peliculas"
+    >
+      <i class="icon-arrow-left"></i>
+    </button>
+  </div>
+</div>

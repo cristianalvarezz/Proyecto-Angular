@@ -19,10 +19,12 @@ export class BreadcrumbsComponent implements OnDestroy {
 
     this.tituloSubs$ = this.getArgumentosRuta()
       //aqui extraigo el titulo 
-                        .subscribe( ({ titulo }) => {
+             .subscribe( ({ titulo }) => {  
+                    
                             this.titulo = titulo;
                             document.title = `AdminPro - ${ titulo }`;
                         });
+                        console.log(this.tituloSubs$);
   }
   ngOnDestroy(): void {
     this.tituloSubs$.unsubscribe();
@@ -38,7 +40,7 @@ export class BreadcrumbsComponent implements OnDestroy {
         //todos estos filtros los utilizo para conseguir solo el titulo
         filter( (event:any) => event instanceof ActivationEnd ),
         //este filtro se va a aplicar al que tenga datos en el firs child
-        filter( (event: ActivationEnd) => console.log(event.snapshot.firstChild) === null  ),
+        filter( (event: ActivationEnd) => event.snapshot.firstChild === null  ),
       //cuando tengo ya el titulo 
         map( (event: ActivationEnd) => event.snapshot.data ),
       );
