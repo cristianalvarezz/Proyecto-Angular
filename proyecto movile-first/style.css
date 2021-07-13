@@ -1,0 +1,96 @@
+/* 1. Posicionamiento
+2. Modelo caja (Box model)
+3. Tipografía
+4. Visuales
+5. Otros */
+
+:root{
+    /* Colores */
+--bitcoin-orange: #f7931a;
+--soft-orange: #ffe9d5;
+--secondary-blue: #1a9af7;
+--soft-blue: #e7f5ff;
+--warm-black: #282623;
+--black: #201e1c;
+--grey: #bababa;
+--off-white: #faf8f7;
+--just-white: #fff;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 62.5%;
+    font-family: 'DM Sans', sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-width: 320px;
+    height: 334px;
+    text-align: center;
+    background: linear-gradient(232deg, #201e1c, #f7931a);
+    background-size: 400% 400%;
+
+    -webkit-animation: bgAnimateBitcoin 20s ease infinite;
+    -moz-animation: bgAnimateBitcoin 20s ease infinite;
+    animation: bgAnimateBitcoin 20s ease infinite;
+}
+
+@-webkit-keyframes bgAnimateBitcoin {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes bgAnimateBitcoin {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes bgAnimateBitcoin {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+header img{
+    width: 150px;
+    height: 24px;
+    margin-top: 60px;
+/* forma de centrar un elemento con display flex */
+    align-self: center;
+}
+/* todo esto utiliza display flex */
+/* estilos contenedor div */
+.header--title-container{   
+    width: 90%;
+    min-width: 288px;
+    /* una vez que lleguemos a los 900px no se hara mas grande  */
+    max-width: 900px;
+    height: 218px;
+    margin-top: 40px;
+    text-align: center;
+
+    align-self: center;
+}
+/* cualquier etiqueta de h1 que este dentro de esta clase */
+.header--title-container h1{
+    /* 24 px */
+    font-size: 2.4rem;
+    font-weight: bold;
+    /* dimencion de altura  */
+    line-height: 2.6rem;
+    color:var(--just-white)
+}
+/* diseño parrafos dentro de esto */
+.header--title-container p{
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+    color: var(--soft-orange);
+}
