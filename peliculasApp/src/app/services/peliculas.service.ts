@@ -72,8 +72,7 @@ export class PeliculasService {
       return this.getQuery('?with_genres=35&with_cast=23659&sort_by=revenue.desc',numero).pipe(
         map((res: any) => res.results));
     }
-   
     return;
-   
+
   }
 }
