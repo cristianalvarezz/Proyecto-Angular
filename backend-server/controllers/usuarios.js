@@ -3,14 +3,11 @@ const { response } = require("express");
 //traigo los modelos
 const Usuario = require("../models/usuario");
 const { generarJWT } = require("../helpers/jwt");
-
 //importo libreria para encriptar la contraseña
 const bcrypt = require("bcryptjs");
-
 const getUsuarios = async (req, res) => {
   const desde = Number(req.query.desde) || 0;
   console.log(desde);
-
   //coleccion de promeas usuarios primera posicion del arreglo, total la segunda
   const [usuarios, total] = await Promise.all([
     //a si especifico los campos
@@ -34,15 +31,12 @@ const getUsuarios = async (req, res) => {
 const crearUsuario = async (req, res = response) => {
   //en la req viene lo que la persona esta solicitando
   // console.log(req.body);
-
   //paso los atributos aqui
   const { email, password, nombre } = req.body;
-
   try {
     //validar un correo
     //busco si el email ya esta y esto es una promesa
     const exiteEmail = await Usuario.findOne({ email });
-
     if (exiteEmail) {
       //en caso de que el correo ya este registrado me devuelve esto
       return res.status(400).json({
