@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 
-const HospitalSchema = Schema({
+const MedicoSchema = Schema({
 
     nombre: {
         type: String,
@@ -15,13 +15,18 @@ const HospitalSchema = Schema({
         //esto indicara la relacion entre el hopital y el usuario
         type:Schema.Types.ObjectId,
         ref:'Usuario'
+    },
+    hospital:{
+        //esto indicara la relacion entre el hopital y el usuario
+        type:Schema.Types.ObjectId,
+        ref:'Hospital'
     }
 //asi se llamara la base de datos
-},{collection:'hospitales'});
+},{collection:'medicos'});
 
 
 //sobre escribo el metodo 
-HospitalSchema.method('toJSON', function() {
+MedicoSchema.method('toJSON', function() {
 
     //del objeto estraido la version y assword y el resto de las propiedades
   //de esta manera no regresare el password
@@ -31,4 +36,4 @@ HospitalSchema.method('toJSON', function() {
 
 
 
-module.exports = model( 'Hospital', HospitalSchema );
+module.exports = model( 'Medico', MedicoSchema );
