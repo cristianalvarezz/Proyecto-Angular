@@ -14,12 +14,14 @@ const MedicoSchema = Schema({
     usuario:{
         //esto indicara la relacion entre el hopital y el usuario
         type:Schema.Types.ObjectId,
-        ref:'Usuario'
+        ref:'Usuario',
+        required:true
     },
     hospital:{
         //esto indicara la relacion entre el hopital y el usuario
         type:Schema.Types.ObjectId,
-        ref:'Hospital'
+        ref:'Hospital',
+        required:true
     }
 //asi se llamara la base de datos
 },{collection:'medicos'});

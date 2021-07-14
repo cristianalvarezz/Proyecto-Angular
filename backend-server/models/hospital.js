@@ -13,6 +13,8 @@ const HospitalSchema = Schema({
     //usuario que creo el hspital
     usuario:{
         //esto indicara la relacion entre el hopital y el usuario
+        //ningun hospital se grabara sin usuario 
+        required:true,
         type:Schema.Types.ObjectId,
         ref:'Usuario'
     }

@@ -20,7 +20,15 @@ const {
 router.get("/", getHospitales);
 //crear usuario
 //el middleware son funciones que siempre se van a ejecutar
-router.post("/", [], crearHospital);
+router.post(
+  "/",
+  [
+    validarJWT,
+    check("nombre", "nombre obligatorio").not().isEmpty(),
+    validarCampos
+  ],
+  crearHospital
+);
 //actualizar usuario
 router.put("/:id", [], actualizarHospital);
 //borrar
