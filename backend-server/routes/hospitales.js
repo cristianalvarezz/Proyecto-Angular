@@ -10,6 +10,7 @@ const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router();
+
 const {
   getHospitales,
   crearHospital,
@@ -17,7 +18,7 @@ const {
   borrarHospital,
 } = require("../controllers/hospitales");
 //obtener usuarios
-router.get("/", getHospitales);
+router.get("/",   validarJWT, getHospitales);
 //crear usuario
 //el middleware son funciones que siempre se van a ejecutar
 router.post(

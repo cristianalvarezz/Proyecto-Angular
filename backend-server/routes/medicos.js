@@ -17,7 +17,7 @@ const {
   borrarMedicos,
 } = require("../controllers/medicos");
 //obtener usuarios
-router.get("/", getMedicos);
+router.get("/",validarJWT, getMedicos);
 //crear usuario
 //el middleware son funciones que siempre se van a ejecutar
 router.post(
