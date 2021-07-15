@@ -1,7 +1,7 @@
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client( process.env.GOOGLE_ID );
 
-
+//todo esto valida el token de google y me devuelve el nombre y el email y una imagen
 const googleVerify = async( token ) => {
 
     const ticket = await client.verifyIdToken({
@@ -12,8 +12,6 @@ const googleVerify = async( token ) => {
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
-
-    console.log(payload);
     const { name, email, picture } = payload;
 
     return { name, email, picture };
