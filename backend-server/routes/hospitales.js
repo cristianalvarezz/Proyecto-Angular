@@ -18,7 +18,7 @@ const {
   borrarHospital,
 } = require("../controllers/hospitales");
 //obtener usuarios
-router.get("/",   validarJWT, getHospitales);
+router.get("/", validarJWT, getHospitales);
 //crear usuario
 //el middleware son funciones que siempre se van a ejecutar
 router.post(
@@ -26,13 +26,21 @@ router.post(
   [
     validarJWT,
     check("nombre", "nombre obligatorio").not().isEmpty(),
-    validarCampos
+    validarCampos,
   ],
   crearHospital
 );
 //actualizar usuario
-router.put("/:id", [], actualizarHospital);
+router.put(
+  "/:id",
+  [
+    validarJWT,
+    check("nombre", "nombre obligatorio").not().isEmpty(),
+    validarCampos,
+  ],
+  actualizarHospital
+);
 //borrar
-router.delete("/:id", borrarHospital);
+router.delete("/:id",validarJWT, borrarHospital);
 
 module.exports = router;

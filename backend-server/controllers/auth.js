@@ -96,17 +96,13 @@ const googleSignIn = async( req, res = response ) => {
 //renovar token 
 
 const renewToken=async(req,res=response)=>{
-
   const uid=req.uid
-  
   // Para generar un nuevo token solo necesito el id del usuario
    const token = await generarJWT( uid );
-
+//regreso nuevo token para dispararlo cuando la persona essta renovada 
   res.json({
-    
-
     ok:true,
-    uid
+    token
   })
 }
 
