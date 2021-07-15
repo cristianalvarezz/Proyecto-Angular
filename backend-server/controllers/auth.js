@@ -44,28 +44,59 @@ const login = async (req, res = response) => {
     });
   }
 };
-
-const googleSignIn = async (req, res = response) => {
-  //recibo el token donde obtendre un email, un nombre y una imagen 
+const googleSignIn = async( req, res = response ) => {
+  //recibo el token donde obtendre un email, un nombre y una imagen
     const googleToken = req.body.token;
-    //el await es para que se espere antes de hacer cualquier cosa 
-    
+
     try {
-    //con esto podre mandar el token verificarlo y recuperar email,nombre y imagen 
-   const{name,email,picture} =  await googleVerify(googleToken);
-    res.json({
-      ok: true,
-      msg: "Google Signin",
-      name,email,picture
-    });
-  } catch (error) {
-    res.status(401).json({
-      ok: false,
-      msg: "token no es correcto  ",
-   
-    });
-  }
-};
+ //el await es para que se espere antes de hacer cualquier cosa
+    //con esto podre mandar el token verificarlo y recuperar email,nombre y imagen
+        const { name, email, picture } = await googleVerify( googleToken );
+  //verifico si el usuario exite
+        const usuarioDB = await Usuario.findOne({ email });
+        let usuario;
+  //si el usuario no exite
+        if ( !usuarioDB ) {
+            // si no existe el usuario
+            usuario = new Usuario({
+                nombre: name,
+                email,
+                password: '@@@',
+                img: picture,
+                google: true
+            });
+        } 
+        //si exite el usuario
+        else {
+            // existe usuario
+                //este google true quiere decir que es un usuario registrado con google
+            usuario = usuarioDB;
+            usuario.google = true;
+        }
+
+        // Guardar en DB
+        await usuario.save();
+
+        // Generar el TOKEN - JWT
+        const token = await generarJWT( usuario.id );
+        
+        res.json({
+            ok: true,
+            token
+        });
+
+    } catch (error) {
+        
+        res.status(401).json({
+            ok: false,
+            msg: 'Token no es correcto',
+        });
+    }
+
+
+
+
+}
 
 module.exports = {
   login,
