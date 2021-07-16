@@ -24,7 +24,6 @@ router.get("/",validarJWT, getUsuarios);
 router.post(
   "/",
   [
-    validarJWT,
     //son varios middle  a ocupar
     //estos campos no pueden estar vacios
     check("nombre", "nombre obligatorio").not().isEmpty(),
