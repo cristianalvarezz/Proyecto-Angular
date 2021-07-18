@@ -10,4 +10,6 @@ export class Usuario{
             public role?: string, 
             public uid?:string, 
     ){}
+
+   
 }
