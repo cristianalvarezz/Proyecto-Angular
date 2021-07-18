@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginForm.value.remember);
     this.usuarioService
       .login(this.loginForm.value, this.loginForm.value.remember)
       .subscribe(
@@ -77,20 +77,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  attachSignin(element: any) {
-    this.auth2.attachClickHandler(
-      element,
-      {},
-      (googleUser: any) => {
-        var id_token = googleUser.getAuthResponse().id_token;
-        this.usuarioService.loginGoogle(id_token).subscribe;
+  attachSignin(element:any) {
+    
+    this.auth2.attachClickHandler( element, {},
+        (googleUser:any) => {
+            const id_token = googleUser.getAuthResponse().id_token;
+            // console.log(id_token);
+            this.usuarioService.loginGoogle( id_token )
+              .subscribe( resp => {
+                // Navegar al Dashboard
+                this.ngZone.run( () => {
+                  this.router.navigateByUrl('/');
+                })
+              });
 
-        //TODO mover al dashboard
-      },
-      (error: any) => {
-        console.log("algo anda mal ")
-        alert(JSON.stringify(error, undefined, 2));
-      }
-    );
+        }, (error:any) => {
+            alert(JSON.stringify(error, undefined, 2));
+        });
   }
 }
