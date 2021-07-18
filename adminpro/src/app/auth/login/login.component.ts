@@ -5,8 +5,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
 
-
-declare const gapi:any;
+declare const gapi: any;
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ declare const gapi:any;
 export class LoginComponent implements OnInit {
   public formSubmitted = false;
   email!: string;
-
+  public auth2: any;
   public loginForm = this.fb.group({
     email: [this.email, [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -51,15 +50,7 @@ export class LoginComponent implements OnInit {
       );
     // console.log( this.loginForm.value );
   }
-
-  onSuccess(googleUser: any) {
-    // console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    var id_token = googleUser.getAuthResponse().id_token;
-    console.log(id_token)
-  }
-  onFailure(error: any) {
-    console.log(error);
-  }
+  //
 
   renderButton() {
     gapi.signin2.render('my-signin2', {
@@ -68,8 +59,38 @@ export class LoginComponent implements OnInit {
       height: 50,
       longtitle: true,
       theme: 'dark',
-      onsuccess: this.onSuccess,
-      onfailure: this.onFailure,
     });
+    this.startApp();
+  }
+
+  startApp() {
+    gapi.load('auth2', () => {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      this.auth2 = gapi.auth2.init({
+        client_id:
+          '836147328644-toved8qvtq0e3mhvsmnba4kovc1cs0j6.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      this.attachSignin(document.getElementById('my-signin2'));
+    });
+  }
+
+  attachSignin(element: any) {
+    this.auth2.attachClickHandler(
+      element,
+      {},
+      (googleUser: any) => {
+        var id_token = googleUser.getAuthResponse().id_token;
+        this.usuarioService.loginGoogle(id_token).subscribe;
+
+        //TODO mover al dashboard
+      },
+      (error: any) => {
+        console.log("algo anda mal ")
+        alert(JSON.stringify(error, undefined, 2));
+      }
+    );
   }
 }
