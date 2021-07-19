@@ -15,7 +15,7 @@ constructor( private UsuarioService:UsuarioService,public router:Router){}
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot){
       this.UsuarioService.validarToken().subscribe(resp=>{
-        console.log(resp)
+      
       })
 
       //va a retornar el token 

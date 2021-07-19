@@ -9,12 +9,13 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
-declare const gapi:any;
+declare const gapi: any;
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   public auth2: any;
+  usuario!: Usuario;
 
   constructor(
     private http: HttpClient,
@@ -37,7 +38,12 @@ export class UsuarioService {
       })
       .pipe(
         tap((resp: any) => {
+        
+          const { email, google, img, nombre, role, uid } = resp.usuario;
+          this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+          
           localStorage.setItem('token', resp.token);
+    
         }),
         map(
           (resp) => true
@@ -73,7 +79,6 @@ export class UsuarioService {
     console.log('Este es el token de google' + token);
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp: any) => {
-        console.log('ESta es la respuesta' + resp);
         localStorage.setItem('token', resp.token);
       })
     );
@@ -83,7 +88,7 @@ export class UsuarioService {
     localStorage.removeItem('token');
 
     this.auth2.signOut().then(() => {
-      //esto es para manjar librerias externas aun que se ejecuten fuera del mismo  
+      //esto es para manjar librerias externas aun que se ejecuten fuera del mismo
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
       });
@@ -91,17 +96,17 @@ export class UsuarioService {
   }
 
   googleInit() {
-
-    return new Promise<void>( resolve => {
+    //las promesas siempre se ejecutaran
+    return new Promise<void>((resolve) => {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
-          client_id: '836147328644-toved8qvtq0e3mhvsmnba4kovc1cs0j6.apps.googleusercontent.com',
+          client_id:
+            '836147328644-toved8qvtq0e3mhvsmnba4kovc1cs0j6.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
 
         resolve();
       });
-    })
-
+    });
   }
 }
