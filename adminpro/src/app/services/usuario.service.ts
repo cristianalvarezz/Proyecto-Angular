@@ -17,6 +17,7 @@ export class UsuarioService {
   public auth2: any;
   usuario!: Usuario;
 
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -25,6 +26,13 @@ export class UsuarioService {
     this.googleInit();
   }
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid():string {
+    return this.usuario.uid || '';
+  }
   //validar peticion de token
   validarToken(): Observable<any> {
     const token = localStorage.getItem('token') || '';
@@ -37,18 +45,14 @@ export class UsuarioService {
         },
       })
       .pipe(
-        tap((resp: any) => {
+        map((resp: any) => {
         
-          const { email, google, img, nombre, role, uid } = resp.usuario;
+          const { email, google, img='', nombre, role, uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
           
           localStorage.setItem('token', resp.token);
-    
+          return true;
         }),
-        map(
-          (resp) => true
-          //si es una respuesta exitosa tengo que retornar true si no false
-        ),
         //en caso de error
         catchError((error) => of(false))
       );
@@ -108,5 +112,19 @@ export class UsuarioService {
         resolve();
       });
     });
+  }
+  actualizarPerfil( data: { email: string, nombre: string, role?: string } ) {
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    };
+
+    return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
   }
 }
