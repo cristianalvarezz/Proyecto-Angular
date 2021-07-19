@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   email!: string;
   public auth2: any;
   public loginForm = this.fb.group({
-    email: [this.email, [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    remember: [false],
+    email: [ localStorage.getItem('email') || '' , [ Validators.required, Validators.email ] ],
+    password: ['', Validators.required ],
+    remember: [false]
   });
 
   constructor(
@@ -30,25 +30,40 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.email = localStorage.getItem('email') || '';
-    if (this.email.length > 1) {
-      this.loginForm.value.remember = true;
-    }
+   
     this.renderButton();
   }
 
   login() {
-    this.usuarioService
-      .login(this.loginForm.value, this.loginForm.value.remember)
-      .subscribe(
-        (correcto) => {
-          this.router.navigate(['/dashboard']);
-        },
-        (err) => {
-          Swal.fire('Error', err.error.msg, 'error');
+
+    this.usuarioService.login( this.loginForm.value )
+      .subscribe( resp => {
+
+        if ( this.loginForm.get('remember')?.value){ 
+          localStorage.setItem('email', this.loginForm.get('email')?.value );
+        } else {
+          localStorage.removeItem('email');
         }
-      );
-    // console.log( this.loginForm.value );
+
+        // Navegar al Dashboard
+        this.router.navigateByUrl('/');
+
+      }, (err) => {
+        // Si sucede un error
+        try {
+          if(err.error.errors.password.msg){
+            Swal.fire('Error', err.error.errors.password.msg, 'error' );
+          }
+          if(err.error.errors.email.msg){
+            Swal.fire('Error', err.error.errors.email.msg, 'error' );
+          }
+          Swal.fire('Error', 'Los dos campos son obligatorios', 'error' );
+        } catch (error) {
+          Swal.fire('Error', '  los campos no coinciden ', 'error' );
+        }
+   
+      });
+
   }
   //
 
@@ -86,6 +101,7 @@ export class LoginComponent implements OnInit {
             this.usuarioService.loginGoogle( id_token )
               .subscribe( resp => {
                 // Navegar al Dashboard
+                //el ngZone es para que angular tome el control 
                 this.ngZone.run( () => {
                   this.router.navigateByUrl('/');
                 })
