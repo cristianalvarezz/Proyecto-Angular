@@ -25,7 +25,7 @@ export class UsuarioService {
   ) {
     this.googleInit();
   }
-
+//para conseguir el token 
   get token(): string {
     return localStorage.getItem('token') || '';
   }
@@ -35,13 +35,13 @@ export class UsuarioService {
   }
   //validar peticion de token
   validarToken(): Observable<any> {
-    const token = localStorage.getItem('token') || '';
+   
 
     return this.http
       .get(`${base_url}/login/renew`, {
         //especifico el x-token
         headers: {
-          'x-token': token,
+          'x-token': this.token,
         },
       })
       .pipe(
