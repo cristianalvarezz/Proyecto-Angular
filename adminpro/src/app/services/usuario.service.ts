@@ -127,4 +127,8 @@ export class UsuarioService {
     });
 
   }
+
+  cargarUsuario(){
+    
+  }
 }
