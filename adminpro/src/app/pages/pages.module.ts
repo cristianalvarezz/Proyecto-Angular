@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
@@ -42,10 +42,10 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
   imports: [ 
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    ComponentsModule,
-    ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }
