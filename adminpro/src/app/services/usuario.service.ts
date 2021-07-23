@@ -18,7 +18,6 @@ export class UsuarioService {
   public auth2: any;
   usuario!: Usuario;
 
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -26,26 +25,24 @@ export class UsuarioService {
   ) {
     this.googleInit();
   }
-//para conseguir el token 
+  //para conseguir el token
   get token(): string {
     return localStorage.getItem('token') || '';
   }
 
-  get uid():string {
+  get uid(): string {
     return this.usuario.uid || '';
   }
 
-  get headers(){
+  get headers() {
     return {
       headers: {
-        'x-token': this.token
-      }
-    } 
+        'x-token': this.token,
+      },
+    };
   }
   //validar peticion de token
   validarToken(): Observable<any> {
-   
-
     return this.http
       .get(`${base_url}/login/renew`, {
         //especifico el x-token
@@ -55,10 +52,9 @@ export class UsuarioService {
       })
       .pipe(
         map((resp: any) => {
-        
-          const { email, google, img='', nombre, role, uid } = resp.usuario;
+          const { email, google, img = '', nombre, role, uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-          
+
           localStorage.setItem('token', resp.token);
           return true;
         }),
@@ -122,36 +118,46 @@ export class UsuarioService {
       });
     });
   }
-  actualizarPerfil( data: { email: string, nombre: string, role?: string } ) {
-
+  actualizarPerfil(data: { email: string; nombre: string; role?: string }) {
     data = {
       ...data,
-      role: this.usuario.role
+      role: this.usuario.role,
     };
 
-    return this.http.put(`${ base_url }/usuarios/${ this.uid }`, data, {
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
       headers: {
-        'x-token': this.token
-      }
+        'x-token': this.token,
+      },
     });
-
   }
 
-  cargarUsuarios( desde: number = 0 ) {
-
-    const url = `${ base_url }/usuarios?desde=${ desde }`;
-    return this.http.get<CargarUsuario>( url, this.headers )
-            .pipe(
-              delay(500),
-              map( resp => {
-                const usuarios = resp.usuarios.map( 
-                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
-                );
-                return {
-                  total: resp.total,
-                  usuarios
-                };
-              })
+  cargarUsuarios(desde: number = 0) {
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>(url, this.headers).pipe(
+      delay(500),
+      map((resp) => {
+        const usuarios = resp.usuarios.map(
+          (user) =>
+            new Usuario(
+              user.nombre,
+              user.email,
+              '',
+              user.img,
+              user.google,
+              user.role,
+              user.uid
             )
+        );
+        return {
+          total: resp.total,
+          usuarios,
+        };
+      })
+    );
+  }
+  eliminarUsuario(usuario: Usuario) {
+    // /usuarios/5eff3c5054f5efec174e9c84
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete(url, this.headers);
   }
 }

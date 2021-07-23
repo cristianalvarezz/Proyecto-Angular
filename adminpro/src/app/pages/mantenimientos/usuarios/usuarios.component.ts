@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { CargarUsuario } from '../../../interfaces/cargar-usuarios.interface';
 import { BusquedasService } from '../../../services/busquedas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -19,7 +20,7 @@ export class UsuariosComponent implements OnInit {
   public cargando: boolean = true;
 
   constructor(
-    private UsuarioService: UsuarioService,
+    private usuarioService: UsuarioService,
     private busquedasService: BusquedasService
   ) {}
 
@@ -28,14 +29,14 @@ export class UsuariosComponent implements OnInit {
   }
   CargarUsuario() {
     this.cargando = true;
-    this.UsuarioService.cargarUsuarios(this.desde).subscribe(
-      ({ total, usuarios }) => {
+    this.usuarioService
+      .cargarUsuarios(this.desde)
+      .subscribe(({ total, usuarios }) => {
         this.totalUsuarios = total;
         this.usuarios = usuarios;
         this.usuariosTemp = usuarios;
         this.cargando = false;
-      }
-    );
+      });
   }
 
   cambiarPagina(valor: number) {
@@ -55,6 +56,32 @@ export class UsuariosComponent implements OnInit {
     }
     this.busquedasService.buscar('usuarios', termino).subscribe((resp) => {
       this.usuarios = resp;
+    });
+    return;
+  }
+
+  eliminarUsuario(usuario: Usuario) {
+    if (usuario.uid === this.usuarioService.uid) {
+      return Swal.fire('Error', 'No puede borrarse a si mismo', 'error');
+    }
+
+    Swal.fire({
+      title: '¿Borrar usuario?',
+      text: `Esta a punto de borrar a ${usuario.nombre}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo',
+    }).then((result) => {
+      if (result.value) {
+        this.usuarioService.eliminarUsuario(usuario).subscribe((resp) => {
+          this.CargarUsuario();
+          Swal.fire(
+            'Usuario borrado',
+            `${usuario.nombre} fue eliminado correctamente`,
+            'success'
+          );
+        });
+      }
     });
     return;
   }
