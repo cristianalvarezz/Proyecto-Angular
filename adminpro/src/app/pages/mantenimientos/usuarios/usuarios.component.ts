@@ -74,6 +74,7 @@ export class UsuariosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.usuarioService.eliminarUsuario(usuario).subscribe((resp) => {
+       //esto para actualizar todo 
           this.CargarUsuario();
           Swal.fire(
             'Usuario borrado',
@@ -84,5 +85,11 @@ export class UsuariosComponent implements OnInit {
       }
     });
     return;
+  }
+  cambiarRole(usuario:Usuario){
+   this.usuarioService.guardarUsuario(usuario)
+        .subscribe(resp=>{
+          console.log(resp);
+        })
   }
 }

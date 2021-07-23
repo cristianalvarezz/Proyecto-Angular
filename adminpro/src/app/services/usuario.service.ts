@@ -119,16 +119,12 @@ export class UsuarioService {
     });
   }
   actualizarPerfil(data: { email: string; nombre: string; role?: string }) {
-    data = {
+   
+    data={
       ...data,
-      role: this.usuario.role,
-    };
-
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+      role:this.usuario.role
+    }
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers);
   }
 
   cargarUsuarios(desde: number = 0) {
@@ -159,5 +155,9 @@ export class UsuarioService {
     // /usuarios/5eff3c5054f5efec174e9c84
     const url = `${base_url}/usuarios/${usuario.uid}`;
     return this.http.delete(url, this.headers);
+  }
+  guardarUsuario(usuario: Usuario) {
+   
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers);
   }
 }
