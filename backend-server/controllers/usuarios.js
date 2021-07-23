@@ -5,6 +5,7 @@ const Usuario = require("../models/usuario");
 const { generarJWT } = require("../helpers/jwt");
 //importo libreria para encriptar la contraseña
 const bcrypt = require("bcryptjs");
+
 const getUsuarios = async (req, res) => {
   const desde = Number(req.query.desde) || 0;
   console.log(desde);
@@ -12,7 +13,7 @@ const getUsuarios = async (req, res) => {
   const [usuarios, total] = await Promise.all([
     //a si especifico los campos
     //const usuarios = await Usuario.find({},'nombre');
-    Usuario.find({}, "nombre email password role google")
+    Usuario.find({}, 'nombre email role google img')
       .skip(desde)
       // argumentos de limite para recibir
       .limit(5),

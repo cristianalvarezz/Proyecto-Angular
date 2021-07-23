@@ -3,7 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { RegisterForm } from '../interfaces/register.form.interface';
 import { environment } from '../../environments/environment.prod';
 import { LoginForm } from '../interfaces/login-form.interface';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -142,6 +142,7 @@ export class UsuarioService {
     const url = `${ base_url }/usuarios?desde=${ desde }`;
     return this.http.get<CargarUsuario>( url, this.headers )
             .pipe(
+              delay(500),
               map( resp => {
                 const usuarios = resp.usuarios.map( 
                   user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
