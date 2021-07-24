@@ -1,0 +1,48 @@
+<div
+  class="fondo-modal-imagen animated fadeIn fast"
+  [class.oculto]="modalImagenService.ocultarModal"
+>
+<!-- activo esta clase de css cuando esto es verdad -->
+  <div
+    id="responsive-modal"
+    class="modal fade show"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    style="display: block; padding-right: 17px"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Cargar imagen</h4>
+          <button
+            type="button"
+            class="close cursor"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="cerrarModal()"
+            
+          >
+            <span arial-hidden="true">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Seleccione una imagen</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default waves-effect"
+            data-dismiss="modal"
+            (click)="cerrarModal()"
+          >
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger waves-effect waves-light">
+            Actualizar foto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
