@@ -24,9 +24,9 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private busquedasService: BusquedasService,
-    private modalImagenService:ModalImagenService
+    private modalImagenService: ModalImagenService
   ) {}
-  //esto para actualizar la imagen del modal 
+  //esto para actualizar la imagen del modal
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
   }
@@ -34,10 +34,10 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.CargarUsuario();
 
-    //actualizo la imagen 
+    //actualizo la imagen
     this.imgSubs = this.modalImagenService.nuevaImagen
-    .pipe(delay(100))
-    .subscribe( img => this.CargarUsuario() );
+      .pipe(delay(100))
+      .subscribe((img) => this.CargarUsuario());
   }
   CargarUsuario() {
     this.cargando = true;
@@ -66,9 +66,11 @@ export class UsuariosComponent implements OnInit {
     if (termino.length === 0) {
       return (this.usuarios = this.usuariosTemp);
     }
-    this.busquedasService.buscar('usuarios', termino).subscribe((resp) => {
-      this.usuarios = resp;
-    });
+    this.busquedasService
+      .buscar('usuarios', termino)
+      .subscribe((resp: any[]) => {
+        this.usuarios = resp;
+      });
     return;
   }
 
@@ -86,7 +88,7 @@ export class UsuariosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.usuarioService.eliminarUsuario(usuario).subscribe((resp) => {
-       //esto para actualizar todo 
+          //esto para actualizar todo
           this.CargarUsuario();
           Swal.fire(
             'Usuario borrado',
@@ -98,16 +100,15 @@ export class UsuariosComponent implements OnInit {
     });
     return;
   }
-  cambiarRole(usuario:Usuario){
-   this.usuarioService.guardarUsuario(usuario)
-        .subscribe(resp=>{
-          console.log(resp);
-        })
+  cambiarRole(usuario: Usuario) {
+    this.usuarioService.guardarUsuario(usuario).subscribe((resp) => {
+      console.log(resp);
+    });
   }
 
-  abrirModal( usuario: Usuario ) {
-    if(usuario.uid){
-      this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img );
+  abrirModal(usuario: Usuario) {
+    if (usuario.uid) {
+      this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
     }
   }
 }

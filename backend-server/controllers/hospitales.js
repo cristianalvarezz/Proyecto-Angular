@@ -5,7 +5,7 @@ const getHospitales = async (req, res = response) => {
   //si quiero saber quien lo creo uso el populate
   const hospitales = await Hospital.find().populate(
     "usuario",
-    "nombre email img"
+    "nombre img"
   );
 
   res.json({
@@ -19,6 +19,7 @@ const crearHospital = async (req, res = response) => {
   const hospital = new Hospital({
     usuario: uid,
     ...req.body,
+    img:""
   });
   // recupero el uid del usuario de la persona que seautentico
   try {
