@@ -1,0 +1,100 @@
+<div class="row animated fadeIn fast">
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Usuarios</h3>
+
+                <div class="alert alert-info" *ngIf="usuarios.length===0">
+                    <p class="mb-0"> No hay usuarios con ese termino</p>
+                </div>
+                
+                <div class="table-responsive" 
+                *ngIf="usuarios.length >0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-usuario [ngForOf]="usuarios" let-i="index"     class="animated fadeIn fast">
+                            <tr >
+                                <td><img *ngIf="!usuario.img" [src]="usuario.nombre|imagen:'usuarios'" alt="" class="w100">
+                                    <img *ngIf="usuario.img" [src]="usuario.img |imagen:'usuarios'" alt="" class="w100">
+                                </td>
+                                <td>{{usuario.nombre}}</td>
+                            </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Medicos</h3>
+
+                <div class="alert alert-info" *ngIf="medicos.length===0" >
+                    <p class="mb-0"> No hay Medicos con ese termino</p>
+                </div>
+            
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-medico [ngForOf]="medicos" let-i="index"     class="animated fadeIn fast">
+                            <tr>
+                                <td><img *ngIf="!medico.img" [src]="medico.nombre|imagen:'medicos'" alt="" class="w100">
+                                    <img *ngIf="medico.img" [src]="medico.img |imagen:'medicos'" alt="" class="w100">
+                                </td>
+                                <td>{{medico.nombre}}</td>
+                            </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Hospital</h3>
+
+                <div class="alert alert-info" *ngIf="hospitales.length===0">
+                    <p class="mb-0"> No hay Hospital con ese termino</p>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-hospital [ngForOf]="hospitales" let-i="index"     class="animated fadeIn fast">
+                                <tr>
+                                    <td><img *ngIf="!hospital.img" [src]="hospital.nombre|imagen:'hospitales'" alt="" class="w100">
+                                        <img *ngIf="hospital.img" [src]="hospital.img |imagen:'hospitales'" alt="" class="w100">
+                                    </td>
+                                    <td>{{hospital.nombre}}</td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

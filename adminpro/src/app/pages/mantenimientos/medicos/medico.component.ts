@@ -86,7 +86,7 @@ export class MedicoComponent implements OnInit {
   guardarMedico() {
 
     const { nombre } = this.medicoForm.value;
-
+//si tengo un medico seleccionado lo muestro si no lo creo 
     if ( this.medicoSeleccionado ) {
       // actualizar
       const data = {

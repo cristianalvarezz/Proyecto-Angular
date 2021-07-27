@@ -9,7 +9,7 @@ const getTodo = async (req, res = response) => {
   //uso la exprecion regular para que me traiga los resultados aproximados
   const regex = new RegExp(busqueda, "i");
 
-  const [usuarios, medicos, hospitales] = Promise.all([
+  const [usuarios, medicos, hospitales] =await Promise.all([
     Usuario.find({ nombre: regex }),
     Medico.find({ nombre: regex }),
     Hospital.find({ nombre: regex }),
