@@ -29,11 +29,16 @@ export class UsuarioService {
   get token(): string {
     return localStorage.getItem('token') || '';
   }
+  get role():'ADMIN_ROLE'|'USER_ROLE'{
+    if( this.usuario.role){
+      return this.usuario.role;
+    }
+    return 'USER_ROLE'
+  }
 
   get uid(): string {
     return this.usuario.uid || '';
   }
-
   get headers() {
     return {
       headers: {
@@ -41,6 +46,13 @@ export class UsuarioService {
       },
     };
   }
+  guardarLocalStorage( token: string, menu: any ) {
+
+    localStorage.setItem('token', token );
+    localStorage.setItem('menu', JSON.stringify(menu) );
+
+  }
+
   //validar peticion de token
   validarToken(): Observable<any> {
     return this.http
@@ -54,8 +66,8 @@ export class UsuarioService {
         map((resp: any) => {
           const { email, google, img = '', nombre, role, uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-
-          localStorage.setItem('token', resp.token);
+          this.guardarLocalStorage(resp.token,resp.menu);
+         
           return true;
         }),
         //en caso de error
@@ -63,8 +75,16 @@ export class UsuarioService {
       );
   }
 
-  crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${base_url}/usuarios`, formData);
+
+  crearUsuario( formData: RegisterForm ) {
+    
+    return this.http.post(`${ base_url }/usuarios`, formData )
+              .pipe(
+                tap( (resp: any) => {
+                  this.guardarLocalStorage(resp.token,resp.menu);
+                })
+              )
+
   }
 
   login(usuario: Usuario, recordar: boolean = false) {
@@ -77,8 +97,7 @@ export class UsuarioService {
 
     return this.http.post(`${base_url}/login`, usuario).pipe(
       map((res: any) => {
-        localStorage.setItem('token', res.token);
-
+        this.guardarLocalStorage(res.token,res.menu);
         return true;
       })
     );
@@ -88,11 +107,11 @@ export class UsuarioService {
     console.log('Este es el token de google' + token);
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorage(resp.token,resp.menu);
       })
     );
   }
-
+  //borrar menu
   logout() {
     localStorage.removeItem('token');
 

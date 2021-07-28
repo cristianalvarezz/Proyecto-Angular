@@ -14,7 +14,8 @@ const router = Router();
 //importo validaciones
 const { validarCampos } = require("../middlewares/validar-campos");
 //calidar token 
-const { validarJWT} =require('../middlewares/validar-jwt');
+const { validarJWT, varlidarADMIN_ROLE,
+  varlidarADMIN_ROLE_o_MismoUsuario} =require('../middlewares/validar-jwt');
 
 
 //obtener usuarios
@@ -38,6 +39,7 @@ router.put(
   "/:id",
   [
     validarJWT,
+    varlidarADMIN_ROLE_o_MismoUsuario,
     check("nombre", "nombre obligatorio").not().isEmpty(),
     check("email", "email obligatorio").isEmail(),
     check("role", " El role es obligatorio ").not().isEmpty(),
@@ -46,6 +48,6 @@ router.put(
   actualizarUsuario
 );
 //borrar
-router.delete( "/:id", validarJWT,borrarUsuario)
+router.delete( "/:id", [validarJWT,varlidarADMIN_ROLE],borrarUsuario)
 
 module.exports = router;
