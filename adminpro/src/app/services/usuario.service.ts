@@ -81,11 +81,12 @@ export class UsuarioService {
     return this.http.post(`${ base_url }/usuarios`, formData )
               .pipe(
                 tap( (resp: any) => {
-                  this.guardarLocalStorage(resp.token,resp.menu);
+                  this.guardarLocalStorage( resp.token, resp.menu );
                 })
               )
 
   }
+
 
   login(usuario: Usuario, recordar: boolean = false) {
     console.log(recordar);

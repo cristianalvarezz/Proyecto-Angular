@@ -66,12 +66,13 @@ const varlidarADMIN_ROLE = async(req, res, next)  => {
 
 }
 
+//esto va a impedir a un usuario no administrador borre otros usuarios 
 const varlidarADMIN_ROLE_o_MismoUsuario = async(req, res, next)  => {
 
+    //si estos dos llegan a ser iguales quiere decir que es un usuario que intenta actualizarse a si mismo 
     const uid = req.uid;
     const id  = req.params.id;
-    console.log("Este es un "+uid)
-    console.log("Este es un "+id)
+  
     try {
         
         const usuarioDB = await Usuario.findById(uid);
@@ -82,12 +83,13 @@ const varlidarADMIN_ROLE_o_MismoUsuario = async(req, res, next)  => {
                 msg: 'Usuario no existe'
             });
         }
-
+      
         if ( usuarioDB.role === 'ADMIN_ROLE' || uid === id ) {
-        
+     
             next();
             
         } else {
+            //en caso de no serlo no tiene permisos para borrar 
             return res.status(403).json({
                 ok: false,
                 msg: 'No tiene privilegios para hacer eso'

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,30 +28,34 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router 
   ) {}
 
+ 
   crearUsuario() {
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
+    console.log( this.registerForm.value );
 
-    //registerForm quiere decir que el formulario tenga un estado donde todos los campos esten llenos
-    if (this.registerForm.invalid) {
+    if ( this.registerForm.invalid ) {
       return;
     }
 
-    //realizar posteo
-    this.usuarioService.crearUsuario(this.registerForm.value).subscribe(
-      (resp) => {
-        console.log(resp);
-        console.log('Usuario creado');
-      },
-      (err) => {
-        //Si sucede un error
-        Swal.fire('Error',err.error.msg,'error')
-      }
-    );
+    // Realizar el posteo
+    this.usuarioService.crearUsuario( this.registerForm.value )
+        .subscribe( resp => {
+          
+          // Navegar al Dashboard
+          this.router.navigateByUrl('/');
+
+        }, (err) => {
+          // Si sucede un error
+          Swal.fire('Error', err.error.msg, 'error' );
+        });
+
+
   }
+
 
   campoNoValido(campo: any): boolean {
     if (this.registerForm.get(campo)?.invalid && this.formSubmitted) {
