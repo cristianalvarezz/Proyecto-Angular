@@ -7,14 +7,14 @@ import { PagesComponent } from './pages.component';
 
 
 
+
 const routes: Routes = [
     { 
         path: 'dashboard', 
         component: PagesComponent,
         canActivate: [ AuthGuard ],
-        //carga perezosa
-        canLoad:[ AuthGuard],
-        loadChildren:()=> import('./child-routes.module').then(m=>m.ChildRoutesModule)
+        canLoad: [ AuthGuard ],
+        loadChildren: () => import('./child-routes.module').then( m => m.ChildRoutesModule )
     },
 ];
 
@@ -23,5 +23,7 @@ const routes: Routes = [
     exports: [ RouterModule ]
 })
 export class PagesRoutingModule {}
+
+
 
 

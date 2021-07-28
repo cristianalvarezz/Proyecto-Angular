@@ -1,58 +1,39 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-  CanLoad,
-  Route,
-  UrlSegment,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanLoad, Route } from '@angular/router';
 import { UsuarioService } from '../services/usuario.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private UsuarioService: UsuarioService, public router: Router) {}
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    throw new Error('Method not implemented.');
+  constructor( private usuarioService: UsuarioService,
+               private router: Router) {}
+
+  canLoad(route: Route, segments: import("@angular/router").UrlSegment[]): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
+    return this.usuarioService.validarToken()
+        .pipe(
+          tap( estaAutenticado =>  {
+            if ( !estaAutenticado ) {
+              this.router.navigateByUrl('/login');
+            }
+          })
+        );
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.UsuarioService.validarToken().subscribe((resp) => {
-      //va a retornar el token
-      return this.UsuarioService.validarToken().pipe(
-        //esto para por si el token no es valido
-        tap((estaAutenticado) => {
-          if (!estaAutenticado) {
-            //esto se dispara si esto esta en falso
-            this.router.navigateByUrl('/login');
-          }
-        })
-      );
-    });
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot) {
 
-    //va a retornar el token
-    return this.UsuarioService.validarToken().pipe(
-      //esto para por si el token no es valido
-      tap((estaAutenticado) => {
-        if (!estaAutenticado) {
-          //esto se dispara si esto esta en falso
-          this.router.navigateByUrl('/login');
-        }
-      })
-    );
+      return this.usuarioService.validarToken()
+        .pipe(
+          tap( estaAutenticado =>  {
+            if ( !estaAutenticado ) {
+              this.router.navigateByUrl('/login');
+            }
+          })
+        );
   }
+  
 }
