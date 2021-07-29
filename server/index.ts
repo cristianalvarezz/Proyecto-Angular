@@ -1,6 +1,23 @@
+import Server from "./classes/server";
+import  router  from './routes/router';
+
+import bodyParser from 'body-parser'
+
+const server =new Server();
 
 
-const nombre ='Fernando';
+//BodyParser
+//lo que sea que me posten tomalo y genera un objeto de javascript
+server.app.use(bodyParser.urlencoded({
+    extended:true
+}));
+server.app.use(bodyParser.json());
 
-console.log(`Mi nombre es ${ nombre }`);
+
+server.app.use('/',router)
+
+
+server.start(()=>{
+    console.log(`servidor corriendo ${ server.port}`)
+})
 
