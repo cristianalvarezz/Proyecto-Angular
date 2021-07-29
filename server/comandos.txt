@@ -1,0 +1,13 @@
+npm init
+npm install express
+npm install cors   
+npm install body-parser
+
+//archivo de configuracion de typescript
+tsc --init
+
+//entrar a modo de observador
+tsc -w 
+
+//correr js
+nodemon dist/
