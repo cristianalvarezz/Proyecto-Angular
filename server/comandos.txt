@@ -11,3 +11,5 @@ tsc -w
 
 //correr js
 nodemon dist/
+
+ npm install @types/cors --save-dev
