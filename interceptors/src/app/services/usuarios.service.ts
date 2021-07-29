@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { throwError } from 'rxjs';
+import { catchError, map} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +14,19 @@ export class UsuariosService {
     let params = new HttpParams().append('page','1')
     params.append('nombre','Fernando Herrera')
 
-    const headers = new HttpHeaders({
-      'token-usuario':'ABC1234532632675'
-    })
+  
+
     //esto lo puedo enviar a la peticion
-    return this.http.get(`https://reqres.in/api/users`,{
+    return this.http.get(`https://reqress.in/api/users`,{
       params,
-      headers
-    });
+     
+    }).pipe(
+      map((resp:any)=>{
+        return resp['data'];
+      })
+    );
   }
+
+
+
 }
