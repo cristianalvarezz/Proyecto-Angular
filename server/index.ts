@@ -4,7 +4,7 @@ import router from "./routes/router";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-const server = new Server();
+const server = new Server.instance;
 
 //BodyParser
 //lo que sea que me posten tomalo y genera un objeto de javascript
