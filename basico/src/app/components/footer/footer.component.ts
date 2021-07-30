@@ -10,7 +10,5 @@ export class FooterComponent  {
 
   constructor(
     public wsService: WebsocketService
-  ) { 
-    console.log(wsService.socketStatus);
-  }
+  ) { }
 }

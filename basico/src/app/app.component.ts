@@ -11,9 +11,7 @@ export class AppComponent {
 
   constructor(
     public wsService: WebsocketService
-  ) { 
- 
-  
-  }
+  ) { }
 
 }
+

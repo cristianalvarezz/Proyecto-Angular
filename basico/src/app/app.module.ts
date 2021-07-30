@@ -10,9 +10,12 @@ const config: SocketIoConfig = {
   url: environment.wsUrl , options: {}
 };
 
+
+
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './components/footer/footer.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 
@@ -21,7 +24,7 @@ import { FooterComponent } from './components/footer/footer.component';
   declarations: [
     AppComponent,
     FooterComponent,
-  
+    ChatComponent
   ],
   imports: [
     BrowserModule,

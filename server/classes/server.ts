@@ -4,6 +4,7 @@ import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
 
+//todas las exportaciones que se encuentren en este archivo 
 import * as socket from '../sockets/socket';
 
 
@@ -19,15 +20,14 @@ export default class Server {
       //socket io
   //aplico el patron singleton para asegurar de que solo exita una unicainstancia
   //en mi clase server
+  //io es el servidor de sockets tiene el control de que personas esan conectas 
     public io: socketIO.Server;
     private httpServer: http.Server;
 
 
     private constructor() {
-
         this.app = express();
         this.port = SERVER_PORT;
-
         this.httpServer = new http.Server( this.app );
           //a qui recibe el http server
         this.io = socketIO( this.httpServer );
