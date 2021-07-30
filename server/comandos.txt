@@ -13,3 +13,6 @@ tsc -w
 nodemon dist/
 
  npm install @types/cors --save-dev
+
+ //instalar sockets
+ npm install socket .io 
