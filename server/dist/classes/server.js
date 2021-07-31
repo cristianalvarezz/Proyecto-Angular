@@ -49,13 +49,16 @@ class Server {
         //el cliente es el nuevo dispositivo que se conecta a nuestra conexion con sockets
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente => {
-            console.log('Cliente conectado');
+            //esto apenas se conecta el cliente 
+            socket.conectarCliente(cliente);
+            //configurar usuario
+            socket.configurarUsuario(cliente, this.io);
+            //para obtener el id del socket del cliente entregado ppara que usuario se coencte 
+            // console.log(cliente.id);
             // Mensajes
             socket.mensaje(cliente, this.io);
             // Desconectar
             socket.desconectar(cliente);
-            //configurar usuario
-            socket.configurarUsuario(cliente, this.io);
         });
     }
     //metodo para levantar servidor

@@ -6,6 +6,7 @@ import http from 'http';
 
 //todas las exportaciones que se encuentren en este archivo 
 import * as socket from '../sockets/socket';
+import { UsuariosLista } from './usuarios-lista';
 
 
 
@@ -49,7 +50,13 @@ export default class Server {
 
         this.io.on('connection', cliente => {
 
-          console.log('Cliente conectado');
+          //esto apenas se conecta el cliente 
+          socket.conectarCliente(cliente);
+          //configurar usuario
+          socket.configurarUsuario(cliente,this.io);
+
+          //para obtener el id del socket del cliente entregado ppara que usuario se coencte 
+          // console.log(cliente.id);
           
           // Mensajes
           socket.mensaje( cliente, this.io );
@@ -58,8 +65,6 @@ export default class Server {
           // Desconectar
           socket.desconectar( cliente );    
           
-          //configurar usuario
-          socket.configurarUsuario(cliente,this.io);
           
  
 
