@@ -22,16 +22,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//npm install @types/express
 const express_1 = __importDefault(require("express"));
 const environment_1 = require("../global/environment");
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
+//todas las exportaciones que se encuentren en este archivo 
 const socket = __importStar(require("../sockets/socket"));
+//esto por que va a ser lo unico que se exportara de este archivo
 class Server {
     constructor() {
         this.app = express_1.default();
         this.port = environment_1.SERVER_PORT;
         this.httpServer = new http_1.default.Server(this.app);
+        //a qui recibe el http server
         this.io = socket_io_1.default(this.httpServer);
         this.escucharSockets();
     }
@@ -39,6 +43,10 @@ class Server {
         return this._intance || (this._intance = new this());
     }
     escucharSockets() {
+        //para saber cuando una persona se conecta mediante sockets
+        //io es nuestro servidor de sockets 
+        //on es para escuchar algun evento
+        //el cliente es el nuevo dispositivo que se conecta a nuestra conexion con sockets
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente => {
             console.log('Cliente conectado');
@@ -46,8 +54,11 @@ class Server {
             socket.mensaje(cliente, this.io);
             // Desconectar
             socket.desconectar(cliente);
+            //configurar usuario
+            socket.configurarUsuario(cliente, this.io);
         });
     }
+    //metodo para levantar servidor
     start(callback) {
         this.httpServer.listen(this.port, callback);
     }
