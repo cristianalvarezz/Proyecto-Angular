@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
@@ -12,14 +13,19 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    public wsService:WebsocketService
+    public wsService:WebsocketService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
   }
 
   ingresar(){
-    this.wsService.loginWS(this.nombre);
+    this.wsService.loginWS(this.nombre).then( ()=>{
+
+      //navego a otra pantalla cuando cumplo la promesa 
+      this.router.navigateByUrl('/mensajes')
+    });
   }
 
 }
