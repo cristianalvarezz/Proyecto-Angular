@@ -8,20 +8,23 @@ import { Usuario } from '../classes/usuario';
 //revisar si el usuario esta desconectado 
 export const usuariosConectados =new UsuariosLista();
 
-export const conectarCliente=(cliente:Socket)=>{
+export const conectarCliente=(cliente:Socket,io:socketIO.Server)=>{
 
     //aqui se agregan todos los usuarios que se van conectando 
     const usuario =new Usuario(cliente.id);
     usuariosConectados.agregar(usuario);
+   
  
 }
 //me interesa saber la persona que se conecto 
-export const desconectar = ( cliente: Socket ) => {
+export const desconectar = ( cliente: Socket,io:socketIO.Server ) => {
     //escucho al cliente y pregunro si esta desconectado 
     cliente.on('disconnect', () => {
         console.log('Cliente desconectado');
         usuariosConectados.borrarUsuario(cliente.id);
         //desconectar usuario
+        //enviare un mensaje a todo el mundo que diga que un usuario se desconecto
+        io.emit('usuarios-activos',usuariosConectados.getLista())
     });
 }
 
@@ -42,7 +45,8 @@ export const mensaje = ( cliente: Socket, io: socketIO.Server ) => {
 export const configurarUsuario = ( cliente: Socket, io: socketIO.Server ) => {
 
     cliente.on('configurar-usuario',(payload:{nombre:string},callback:Function)=>{
-     
+    
+        io.emit('usuarios-activos',usuariosConectados.getLista())
         // actualizo el nombre con el nombre puesto en el input
         usuariosConectados.actualizarNombre(cliente.id,payload.nombre)
         callback({

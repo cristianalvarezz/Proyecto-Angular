@@ -50,7 +50,7 @@ class Server {
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente => {
             //esto apenas se conecta el cliente 
-            socket.conectarCliente(cliente);
+            socket.conectarCliente(cliente, this.io);
             //configurar usuario
             socket.configurarUsuario(cliente, this.io);
             //para obtener el id del socket del cliente entregado ppara que usuario se coencte 
@@ -58,7 +58,7 @@ class Server {
             // Mensajes
             socket.mensaje(cliente, this.io);
             // Desconectar
-            socket.desconectar(cliente);
+            socket.desconectar(cliente, this.io);
         });
     }
     //metodo para levantar servidor

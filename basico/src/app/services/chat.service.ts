@@ -34,6 +34,8 @@ export class ChatService {
     getMessagesGlobal(){
       return this.wsService.listen( 'mensaje-global' );
     }
-
+    getUsuariosActivos(){
+      return this.wsService.listen( 'usuarios-activos' );
+    }
 
 }
