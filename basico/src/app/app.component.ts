@@ -8,10 +8,16 @@ import { WebsocketService } from './services/websocket.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(
     public wsService: WebsocketService
   ) { }
+  ngOnInit(): void {
+    this.chatService.getMessagesPrivate().subscribe(msg=>{
+      console.log(msg);
+    this.chatService.getMessagesGlobal().subscribe(msg=>{
+      console.log(msg);
 
 }
 

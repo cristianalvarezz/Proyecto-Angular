@@ -28,4 +28,12 @@ export class ChatService {
       return this.wsService.listen('mensaje-nuevo');
     }
 
+    getMessagesPrivate(){
+      return this.wsService.listen( 'mensaje-privado' );
+    }
+    getMessagesGlobal(){
+      return this.wsService.listen( 'mensaje-global' );
+    }
+
+
 }
