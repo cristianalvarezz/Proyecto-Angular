@@ -10,10 +10,13 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import { LayoutComponent } from './layout/layout.component';
     SharedModule,
     CoreModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

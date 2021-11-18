@@ -20,6 +20,7 @@ export class ProductsService {
 
   getProduct(id: string) {
     return this.http.get<Product>(`${environment.url_api}/products/${id}`);
+
   }
 
   createProduct(product: Product) {
