@@ -12,6 +12,8 @@ import { LayoutComponent } from './layout/layout.component';
 
 import { environment } from 'src/environments/environment';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { environment } from 'src/environments/environment';
     CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+ 
    
   ],
   providers: [],
